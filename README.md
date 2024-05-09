@@ -28,4 +28,4 @@ Na mesma pasta deixei um arquivo [swagger](docs\swagger.yaml) para uma conferên
 
 
 ## Diretrizes do projeto
- Para ver tudo que foi solicitado nesse projeto-desafio abra o arquivo [challenge.md](resources\Docs\challenge.md)
+ Para ver tudo que foi solicitado nesse projeto-desafio abra o arquivo [challenge](resources\Docs\challenge.md)
