@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 100);
             $table->string('email')->unique();
-            $table->bigInteger('telefone');
+            $table->string('telefone')->unique();
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

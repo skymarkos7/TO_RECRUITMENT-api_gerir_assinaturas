@@ -74,7 +74,7 @@ class AssinaturaController extends Controller
     public function insertAssinaturas(Request $request)
     {
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: cadastro, descrição, vencimento e valor são obrigatórios',
+            'message' => 'os campos: cadastro_id, descrição, vencimento e valor são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -86,21 +86,19 @@ class AssinaturaController extends Controller
         }
 
         try {
-            $assinaturaExist = Assinatura::where('cadastro', $request->cadastro)
-                ->exists();
-
-            $cadastroExist = Cadastro::where('codigo', $request->cadastro)
+            $cadastroExist = Cadastro::where('id', $request->cadastro_id)
                 ->exists();
 
             if (!$cadastroExist)
-                return response()->json(['message' => 'O cadastro informado não é um código válido, favor informe um código de cadastro válido', 'code' => 406], 406);
-
-            $message = ($assinaturaExist)
-                ? 'O cadastro já possuia assinatura ativa, e foi adicionado uma nova'
-                : 'A assinatura foi inserida com sucesso!';
+                return response()->json([
+                        'message' => 'O cadastro_id informado não é um ID válido, favor informe um ID de cadastro válido',
+                        'code' => 406
+                    ],
+                    406
+                );
 
             $assinatura = Assinatura::create([
-                'cadastro' => $request->cadastro,
+                'cadastro_id' => $request->cadastro_id,
                 'descricao' => $request->descricao,
                 'vencimento' => $request->vencimento,
                 'valor' => $request->valor,
@@ -108,7 +106,7 @@ class AssinaturaController extends Controller
             ]);
 
             return response()->json([
-                'message' => $message,
+                'message' => 'Assinatura inserida com sucesso',
                 'data' => $assinatura,
                 'code' => 201
             ], 201);
@@ -127,7 +125,7 @@ class AssinaturaController extends Controller
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: codigo, vencimento, nome, email e telefone são obrigatórios',
+            'message' => 'os campos: cadastro_id, descricao, vencimento, valor, e status_fatura são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -144,19 +142,19 @@ class AssinaturaController extends Controller
             $assinaturaExist = Assinatura::where('id', $id)
                 ->exists();
 
-            if (!$assinaturaExist) return response()->json(['message' => 'O ID da assinatura informada não existe', 'code' => 406], 406);
+            if (!$assinaturaExist) return response()->json(['message' => 'O ID da assinatura informada na URL não existe', 'code' => 406], 406);
 
-            $cadastroExist = Cadastro::where('codigo', $request->cadastro)
+            $cadastroExist = Cadastro::where('id', $request->cadastro_id)
                 ->exists();
 
             if (!$cadastroExist)
-                return response()->json(['message' => 'O cadastro informado não é um código válido, favor informe um código de cadastro válido', 'code' => 406], 406);
+                return response()->json(['message' => 'O cadastro_id informado não é um código válido, favor informe um ID de cadastro válido', 'code' => 406], 406);
 
             Assinatura::where('id', $id)
                 ->update([
-                    'cadastro' => $request->cadastro,
+                    'cadastro_id' => $request->cadastro_id,
                     'descricao' => $request->descricao,
-                    'vencimento'=> $request->vencimento,
+                    'vencimento' => $request->vencimento,
                     'valor' => $request->valor,
                     'status_fatura' => $request->status_fatura,
                 ]);
@@ -206,7 +204,7 @@ class AssinaturaController extends Controller
 
     function validateEmptyField($request)
     {
-        if (!isset($request->cadastro) || !isset($request->descricao) || !isset($request->vencimento) || !isset($request->valor) || !isset($request->status_fatura)) {
+        if (!isset($request->cadastro_id) || !isset($request->descricao) || !isset($request->vencimento) || !isset($request->valor) || !isset($request->status_fatura)) {
             return true;
         } else {
             return false;

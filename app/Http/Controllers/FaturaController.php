@@ -78,7 +78,7 @@ class FaturaController extends Controller
     {
         // return $request;
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: cadastro, assinatura, descricao, vencimento, valor e status são obrigatórios',
+            'message' => 'os campos: assinatura_id, descricao, vencimento, valor e status são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -92,12 +92,12 @@ class FaturaController extends Controller
         try {
             if (!$this->validatorCadastroAndAssinatura($request)) {
                 return response()->json([
-                    'message' => 'O Nº de cadastro e(ou) ID da assinatura informados não é válido, favor informe um cadastro e assinatura válidos',
+                    'message' => 'O ID da assinatura informados não é válido, favor informe um ID de assinatura válido',
                     'code' => 406
                 ], 406);
             }
 
-            $faturaEmitida = Assinatura::where('id', $request->assinatura)
+            $faturaEmitida = Assinatura::where('id', $request->assinatura_id)
                 ->where('status_fatura', 'emitido')
                 ->exists();
 
@@ -109,21 +109,20 @@ class FaturaController extends Controller
             }
 
             $fatura = Fatura::create([
-                'cadastro' => $request->cadastro,
-                'assinatura' => $request->assinatura,
+                'assinatura_id' => $request->assinatura_id,
                 'descricao' => $request->descricao,
                 'vencimento' => $request->vencimento,
                 'valor' => $request->valor,
                 'status' => $request->status,
             ]);
 
-            Assinatura::where('id', $request->assinatura)
+            Assinatura::where('id', $request->assinatura_id)
                 ->update([
                     'status_fatura' => 'emitido',
                 ]);
 
             return response()->json([
-                'message' => 'A fatura foi inserida com sucesso!',
+                'message' => 'A fatura foi criada com sucesso!',
                 'data' => $fatura,
                 'code' => 201
             ], 201);
@@ -142,7 +141,7 @@ class FaturaController extends Controller
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: cadastro, assinatura, descricao, vencimento, valor e status são obrigatórios',
+            'message' => 'os campos: assinatura_id, descricao, vencimento, valor e status são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -159,19 +158,18 @@ class FaturaController extends Controller
             $faturaExist = Fatura::where('id', $id)
                 ->exists();
 
-            if (!$faturaExist) return response()->json(['message' => 'O ID da fatura informada não existe', 'code' => 406], 406);
+            if (!$faturaExist) return response()->json(['message' => 'O ID da fatura informada na não existe', 'code' => 406], 406);
 
             if (!$this->validatorCadastroAndAssinatura($request)) {
                 return response()->json([
-                    'message' => 'O Nº de cadastro e(ou) ID da assinatura informados não é válido, favor informe um cadastro e assinatura válidos',
+                    'message' => 'O ID da assinatura informados não é válido, favor informe um ID de assinatura válido',
                     'code' => 406
                 ], 406);
             }
 
             Fatura::where('id', $id)
                 ->update([
-                    'cadastro' => $request->cadastro,
-                    'assinatura' => $request->assinatura,
+                    'assinatura_id' => $request->assinatura_id,
                     'descricao' => $request->descricao,
                     'vencimento' => $request->vencimento,
                     'valor' => $request->valor,
@@ -223,7 +221,7 @@ class FaturaController extends Controller
 
     function validateEmptyField($request)
     {
-        if (!isset($request->cadastro) || !isset($request->assinatura) || !isset($request->descricao) || !isset($request->vencimento) || !isset($request->valor) || !isset($request->status)) {
+        if (!isset($request->assinatura_id) || !isset($request->descricao) || !isset($request->vencimento) || !isset($request->valor) || !isset($request->status)) {
             return true;
         } else {
             return false;
@@ -234,7 +232,6 @@ class FaturaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'assinatura_id' => 'required|integer',
-            'assinatura' => 'required|integer',
             'descricao' => 'required|string',
             'vencimento' => 'required|date',
             'valor' => 'required|integer',
@@ -246,12 +243,9 @@ class FaturaController extends Controller
 
     function validatorCadastroAndAssinatura($request)
     {
-        $cadastroExist = Cadastro::where('codigo', $request->cadastro)
+        $assinaturaExist = Assinatura::where('id', $request->assinatura_id)
             ->exists();
 
-        $assinaturaExist = Assinatura::where('id', $request->assinatura)
-            ->exists();
-
-        return $cadastroExist && $assinaturaExist ? true : false;
+        return $assinaturaExist ? true : false;
     }
 }

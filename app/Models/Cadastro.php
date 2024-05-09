@@ -18,7 +18,6 @@ class Cadastro extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'codigo',
         'nome',
         'email',
         'telefone',
