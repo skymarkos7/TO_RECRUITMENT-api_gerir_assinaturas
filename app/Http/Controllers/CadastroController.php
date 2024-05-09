@@ -200,7 +200,6 @@ class CadastroController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'codigo' => 'required|string|min:4',
             'nome' => 'required|string',
             'email' => 'required|email',
             'telefone' => 'required|string|min:8',

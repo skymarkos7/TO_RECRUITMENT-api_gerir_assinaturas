@@ -216,7 +216,7 @@ class AssinaturaController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'cadastro' => 'required|string|min:4',
+            'cadastro_id' => 'required|integer',
             'descricao' => 'required|string',
             'vencimento' => 'required|date',
             'valor' => 'required|integer',

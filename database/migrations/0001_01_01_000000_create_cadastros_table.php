@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('cadastros', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->unique();
             $table->string('nome', 100);
             $table->string('email')->unique();
             $table->bigInteger('telefone');

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('faturas', function (Blueprint $table) {
             $table->id();
-            $table->string('cadastro');
+            $table->bigInteger('assintura_id');
+            $table->foreign('assintura_id')->references('id')->on('assinaturas');
             $table->string('assinatura');
             $table->string('descricao');
             $table->timestamp('vencimento');

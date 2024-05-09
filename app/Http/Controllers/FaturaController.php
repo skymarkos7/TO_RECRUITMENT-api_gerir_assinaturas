@@ -233,7 +233,7 @@ class FaturaController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'cadastro' => 'required|string|min:4',
+            'assinatura_id' => 'required|integer',
             'assinatura' => 'required|integer',
             'descricao' => 'required|string',
             'vencimento' => 'required|date',
