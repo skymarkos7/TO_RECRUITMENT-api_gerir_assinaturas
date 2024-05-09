@@ -11,8 +11,7 @@ class Fatura extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'cadastro',
-        'assinatura',
+        'assinatura_id',
         'descricao',
         'vencimento',
         'valor',

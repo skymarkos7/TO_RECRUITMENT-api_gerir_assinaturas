@@ -73,7 +73,7 @@ class CadastroController extends Controller
     public function insertCadastro(Request $request)
     {
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: nome, email e telefone e codigo são obrigatórios',
+            'message' => 'os campos: nome, email e telefone são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -86,13 +86,12 @@ class CadastroController extends Controller
 
         try {
             $cadastroExist = Cadastro::where('email', $request->email)
-                ->orWhere('codigo', $request->codigo)
+                ->orWhere('telefone', $request->telefone)
                 ->exists();
 
-            if ($cadastroExist) return response()->json(['message' => 'Já existe um cadastro com o mesmo email ou codigo', 'code' => 406], 406);
+            if ($cadastroExist) return response()->json(['message' => 'Já existe um cadastro com o mesmo email ou telefone :(', 'code' => 406], 406);
 
             $cadastro = Cadastro::create([
-                'codigo' => $request->codigo,
                 'nome' => $request->nome,
                 'email' => $request->email,
                 'telefone' => $request->telefone,
@@ -118,7 +117,7 @@ class CadastroController extends Controller
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: codigo, nome, email e telefone são obrigatórios',
+            'message' => 'os campos: nome, email e telefone são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -139,7 +138,6 @@ class CadastroController extends Controller
 
             Cadastro::where('id', $id)
                 ->update([
-                    'codigo' => $request->codigo,
                     'nome' => $request->nome,
                     'email' => $request->email,
                     'telefone' => $request->telefone,
@@ -190,7 +188,7 @@ class CadastroController extends Controller
 
     function validateEmptyField($request)
     {
-        if (!isset($request->email) || !isset($request->codigo) || !isset($request->nome) || !isset($request->telefone)) {
+        if (!isset($request->email) || !isset($request->nome) || !isset($request->telefone)) {
             return true;
         } else {
             return false;
@@ -200,10 +198,9 @@ class CadastroController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'codigo' => 'required|string|min:4',
             'nome' => 'required|string',
             'email' => 'required|email',
-            'telefone' => 'required|string|min:8',
+            'telefone' => 'required|celular_com_ddd',
         ]);
 
         return $validator->fails() ? $validator : false;
