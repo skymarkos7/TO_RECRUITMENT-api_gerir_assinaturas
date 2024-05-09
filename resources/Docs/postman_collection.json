@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "1ab37f18-4a64-4a2f-b75e-28fbc083a7ec",
+		"name": "desafio: api de assinaturas jobs assincrôno",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12541331",
+		"_collection_link": "https://martian-satellite-565549.postman.co/workspace/challenges~a58180af-08d9-4afe-b4f9-d74fc367fbf8/collection/12541331-1ab37f18-4a64-4a2f-b75e-28fbc083a7ec?action=share&source=collection_link&creator=12541331"
+	},
+	"item": [
+		{
+			"name": "Cadastro",
+			"item": [
+				{
+					"name": "Inclusão de Cadastro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "Marcos Lourenço",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "marcos@host.com",
+									"description": "string | email",
+									"type": "text"
+								},
+								{
+									"key": "telefone",
+									"value": "(82) 99690-9200",
+									"description": "integer | (82) 99690-9200",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/cadastro/insert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cadastro",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listagem de cadastros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/cadastro/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cadastro",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar único cadastro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/cadastro/get/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cadastro",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edição de Cadastro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"deltan beltrão\",\r\n    \"email\": \"deltan@beltrao.com\",\r\n    \"telefone\": \"82954655\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/cadastro/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cadastro",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclusão de cadastro",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/cadastro/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cadastro",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Assinatura",
+			"item": [
+				{
+					"name": "Inclusão de assinatura",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cadastro_id",
+									"value": "1",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "descricao",
+									"value": "netflix",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "valor",
+									"value": "35",
+									"description": "number",
+									"type": "text"
+								},
+								{
+									"key": "status_fatura",
+									"value": "aguardando",
+									"description": "emitido ou aguardando",
+									"type": "text"
+								},
+								{
+									"key": "vencimento",
+									"value": "2024-05-05 11:59:49",
+									"description": "date",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/assinatura/insert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"assinatura",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listagem de assinaturas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/assinatura/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"assinatura",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar único assinatura",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/assinatura/get/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"assinatura",
+								"get",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edição de assinatura",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cadastro_id\" : \"1\",\r\n    \"descricao\" : \"amazon prime\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status_fatura\" : \"emitido\"  // emitido ou aguardando\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/assinatura/update/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"assinatura",
+								"update",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclusão de assinatura",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/assinatura/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"assinatura",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fatura",
+			"item": [
+				{
+					"name": "Inclusão de fatura",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "assinatura_id",
+									"value": "1",
+									"description": "string | id da assinatura que ao qual a fatura pertence",
+									"type": "text"
+								},
+								{
+									"key": "descricao",
+									"value": "mercado",
+									"description": "string ",
+									"type": "text"
+								},
+								{
+									"key": "vencimento",
+									"value": "2024-06-20 11:59:49",
+									"description": "datetime | ex: 2024-06-15 11:59:49",
+									"type": "text"
+								},
+								{
+									"key": "valor",
+									"value": "55",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "pendente",
+									"description": "string | pago ou pendente",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/fatura/insert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fatura",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listagem de fatura",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/fatura/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fatura",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar único fatura",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/fatura/get/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fatura",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edição de fatura",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assinatura_id\" : \"1\",\r\n    \"assinatura\" : \"2\",\r\n    \"descricao\" : \"mercado libre\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status\" : \"pago\" // pago ou pendente\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/fatura/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fatura",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclusão de fatura",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/fatura/delete/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fatura",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
