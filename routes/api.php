@@ -2,34 +2,23 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CadastroController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AssinaturaController;
 use App\Http\Controllers\FaturaController;
+use Illuminate\Foundation\Auth\User;
 
 /**
- * Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Cadastros
- * Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Assinaturas
- * Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Faturas
- * Deve possuir uma Task que verifica uma vez ao dia todas as assinaturas que vencem daqui a 10 dias e converta elas em faturas.
- * A Task não pode converter faturas já convertidas hoje.
- *
- * Criar as Migrations
- * Criar os Seeds
+ * User group
  */
+Route::get('/user/getall', [UserController::class, 'getAllUsers']);
 
+Route::get('/user/get/{id?}', [UserController::class, 'getUser']);
 
-/**
- * Cadastro group
- */
-Route::get('/cadastro/getall', [CadastroController::class, 'getAllCadastros']);
+Route::post('/user/insert', [UserController::class, 'insertUser']);
 
-Route::get('/cadastro/get/{id?}', [CadastroController::class, 'getCadastro']);
+Route::put('/user/update/{id?}', [UserController::class, 'updateUser']);
 
-Route::post('/cadastro/insert', [CadastroController::class, 'insertCadastro']);
-
-Route::put('/cadastro/update/{id?}', [CadastroController::class, 'updateCadastro']);
-
-Route::delete('/cadastro/delete/{id?}', [CadastroController::class, 'deleteCadastro']);
+Route::delete('/user/delete/{id?}', [UserController::class, 'deleteUser']);
 
 /**
  * Assinatura group

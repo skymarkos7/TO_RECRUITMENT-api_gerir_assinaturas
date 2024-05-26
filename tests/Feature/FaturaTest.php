@@ -15,7 +15,7 @@ class FaturaTest extends TestCase
     public function test_donnot_creating_a_new_fatura_without_a_required_field(): void
     {
         $data = [
-            // "cadastro" => "XYYYTT", // sending without code
+            // "user" => "XYYYTT", // sending without code
             "assinatura" => "1",
             "descricao" => "mercado livre",
             "vencimento" => "2024-05-05 11:59:49",
@@ -26,7 +26,7 @@ class FaturaTest extends TestCase
 
         $response = $this->withHeaders([
             'Content-Type' => 'application/json',
-        ])->json('POST', 'api/cadastro/insert', $data);
+        ])->json('POST', 'api/user/insert', $data);
 
         $response->assertStatus(400);
     }

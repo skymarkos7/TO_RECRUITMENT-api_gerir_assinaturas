@@ -38,7 +38,7 @@ class VerificarAssinaturas extends Command
             try {
                 foreach ($assinaturas as $assinatura) {
                     Fatura::create([
-                        'cadastro' => $assinatura->cadastro,
+                        'user' => $assinatura->user,
                         'assinatura' => $assinatura->id,
                         'descricao' => $assinatura->descricao,
                         'vencimento' => $assinatura->vencimento,

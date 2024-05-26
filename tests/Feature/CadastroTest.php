@@ -6,13 +6,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CadastroTest extends TestCase
+class UserTest extends TestCase
 {
     /**
-     * Cadastro feature test
+     * User feature test
      */
 
-    public function test_donnot_creating_a_new_cadastro_without_a_required_field(): void
+    public function test_donnot_creating_a_new_user_without_a_required_field(): void
     {
         $data = [
             // "codigo" => "XYYYTT", // sending without code
@@ -23,12 +23,12 @@ class CadastroTest extends TestCase
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->json('POST', 'api/cadastro/insert', $data);
+            ])->json('POST', 'api/user/insert', $data);
 
         $response->assertStatus(400);
     }
 
-    public function test_donnot_creating_a_cadastro_that_already_exists_in_database(): void
+    public function test_donnot_creating_a_user_that_already_exists_in_database(): void
     {
         $data = [
             "codigo" => "XYBBTT", // sending without code
@@ -39,39 +39,39 @@ class CadastroTest extends TestCase
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->json('POST', 'api/cadastro/insert', $data); // Save the first
+            ])->json('POST', 'api/user/insert', $data); // Save the first
 
         $response = $this->withHeaders([
             'Content-Type' => 'application/json',
-        ])->json('POST', 'api/cadastro/insert', $data); // Try save the same again
+        ])->json('POST', 'api/user/insert', $data); // Try save the same again
 
         $response->assertStatus(406);
     }
 
-    public function test_the_cadastro_returns_valid_data_in_getall_route_in_getaal_route(): void
+    public function test_the_user_returns_valid_data_in_getall_route_in_getaal_route(): void
     {
-        $response = $this->get('api/cadastro/getall');
+        $response = $this->get('api/user/getall');
 
         $response->assertStatus(200);
     }
 
-    public function test_the_cadastro_returns_one_specific_cadastro_in_get_route(): void
+    public function test_the_user_returns_one_specific_user_in_get_route(): void
     {
-        $response = $this->get('api/cadastro/get/1');
+        $response = $this->get('api/user/get/1');
 
         $response->assertStatus(200);
     }
 
     public function test_sending_an_invalid_id_need_be_refused_in_get_route(): void
     {
-        $response = $this->get('api/cadastro/get/xpto');
+        $response = $this->get('api/user/get/xpto');
 
         $response->assertStatus(400);
     }
 
     public function test_sending_an_nonexistent_id_need_to_be_warned_in_get_route(): void
     {
-        $response = $this->get('api/cadastro/get/10000000');
+        $response = $this->get('api/user/get/10000000');
 
         $response->assertStatus(406);
     }
@@ -87,7 +87,7 @@ class CadastroTest extends TestCase
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->json('PUT', 'api/cadastro/update/10000000', $data);
+            ])->json('PUT', 'api/user/update/10000000', $data);
 
         $response->assertStatus(406);
     }
@@ -103,7 +103,7 @@ class CadastroTest extends TestCase
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->json('PUT', 'api/cadastro/update/xpto', $data);
+            ])->json('PUT', 'api/user/update/xpto', $data);
 
         $response->assertStatus(400);
     }
@@ -119,7 +119,7 @@ class CadastroTest extends TestCase
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->json('PUT', 'api/cadastro/update/1', $data);
+            ])->json('PUT', 'api/user/update/1', $data);
 
         $response->assertStatus(400);
     }
@@ -135,12 +135,12 @@ class CadastroTest extends TestCase
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->json('PUT', 'api/cadastro/update/1', $data);
+            ])->json('PUT', 'api/user/update/1', $data);
 
         $response->assertStatus(422);
     }
 
-    public function test_sending_correct_data_the_cadastro_is_updated_successfully_in_update_route(): void
+    public function test_sending_correct_data_the_user_is_updated_successfully_in_update_route(): void
     {
         $data = [
             "codigo" => "XYYYTT",
@@ -151,21 +151,21 @@ class CadastroTest extends TestCase
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
-            ])->json('PUT', 'api/cadastro/update/1', $data);
+            ])->json('PUT', 'api/user/update/1', $data);
 
         $response->assertStatus(201);
     }
 
     public function test_sending_a_nonexistent_id_need_to_be_warned_in_delete_route(): void
     {
-        $response = $this->get('api/cadastro/get/10000000');
+        $response = $this->get('api/user/get/10000000');
 
         $response->assertStatus(406);
     }
 
     public function test_sending_an_invalid_id_need_be_refused_in_delete_route(): void
     {
-        $response = $this->get('api/cadastro/get/xpto');
+        $response = $this->get('api/user/get/xpto');
 
         $response->assertStatus(400);
     }

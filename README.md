@@ -16,7 +16,7 @@
 3. Com servidor de banco de dados rodando e configurado execute o comando  `php artisan migrate`  para rodar migrations.
     - OBS: Para essa api foi utilizado o banco de dados MYSQL entretanto é possível utilizar outros bancos, bastanto configurar o arquivo [.env](.env)
 4. Popule as tabelas executando as seeds a baixo:
-    1. `php artisan db:seed --class=CadastroSeeder`
+    1. `php artisan db:seed --class=UserSeeder`
     2. `php artisan db:seed --class=AssinaturaSeeder`
     3. `php artisan db:seed --class=FaturaSeeder`
     

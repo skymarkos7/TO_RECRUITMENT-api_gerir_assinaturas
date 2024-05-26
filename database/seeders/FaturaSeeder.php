@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cadastro;
+use App\Models\User;
 use App\Models\Fatura;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +17,7 @@ class FaturaSeeder extends Seeder
     {
         try {
             Fatura::create([
-                'cadastro' => 'XYZKVT',
+                'user' => 'XYZKVT',
                 'assinatura'=> 10,
                 'descricao' => 'youtube',
                 'vencimento' => Carbon::now()->addDays(1),
@@ -25,11 +25,11 @@ class FaturaSeeder extends Seeder
                 'status' => 'pago',
             ]);
 
-            dd('Os cadastros foram inseridos com sucesso!');
+            dd('Os users foram inseridos com sucesso!');
 
         } catch (\Exception $e) {
 
-            dd('Ocorreu um erro ao realizar a inserção dos cadastros '. $e->getMessage());
+            dd('Ocorreu um erro ao realizar a inserção dos users '. $e->getMessage());
         }
     }
 }

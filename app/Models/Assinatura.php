@@ -11,7 +11,7 @@ class Assinatura extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'cadastro_id',
+        'user_id',
         'descricao',
         'vencimento',
         'valor',

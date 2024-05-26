@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cadastro;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
 
-class CadastroSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -35,7 +35,7 @@ class CadastroSeeder extends Seeder
 
         try {
             for ($i = 0; $i < 5; $i++) {
-                Cadastro::create([
+                User::create([
                     'codigo' => $codigos[$i],
                     'nome' => $faker->name,
                     'email' => $faker->email,
@@ -43,11 +43,11 @@ class CadastroSeeder extends Seeder
                 ]);
             }
 
-            dd('Os cadastros foram inseridos com sucesso!');
+            dd('Os users foram inseridos com sucesso!');
 
         } catch (\Exception $e) {
 
-            dd('Ocorreu um erro ao realizar a inserção dos cadastros '. $e->getMessage());
+            dd('Ocorreu um erro ao realizar a inserção dos users '. $e->getMessage());
         }
     }
 }

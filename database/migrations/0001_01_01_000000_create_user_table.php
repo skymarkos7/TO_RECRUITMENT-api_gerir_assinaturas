@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cadastros', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 100);
-            $table->string('email')->unique();
-            $table->string('telefone')->unique();
+            $table->string('name', 100);
+            $table->string('mail')->unique();
+            $table->string('phone')->unique();
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
@@ -36,7 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cadastros');
+        Schema::dropIfExists('user');
         Schema::dropIfExists('sessions');
     }
 };

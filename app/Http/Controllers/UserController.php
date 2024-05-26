@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cadastro;
+use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CadastroController extends Controller
+class UserController extends Controller
 {
     // GET
-    public function getAllCadastros()
+    public function getAllUsers()
     {
         try {
-            $cadastros = Cadastro::all();
+            $users = User::all();
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Ocorreu um erro ao realizar a consulta.',
@@ -21,37 +21,37 @@ class CadastroController extends Controller
             ], 500);
         };
 
-        if (count($cadastros) == 0) {
+        if (count($users) == 0) {
             return response()->json([
-                'message' => 'Ainda não há cadastros inseridos.',
+                'message' => 'Ainda não há users inseridos.',
                 'code' => 204
             ], 204);
         }
 
         return response()->json([
-            'data' => $cadastros,
+            'data' => $users,
             'code' => 200
         ], 200);
     }
 
     // GET
-    public function getCadastro($id = null)
+    public function getUser($id = null)
     {
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
-        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do cadastro', 'code' => 400], 400);
+        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do user', 'code' => 400], 400);
 
         try {
-            $cadastroExist = Cadastro::where('id', $id)
+            $userExist = User::where('id', $id)
                 ->exists();
 
-            if (!$cadastroExist) return response()->json(['message' => 'O ID informado não é de um cadastro válido', 'code' => 406], 406);
+            if (!$userExist) return response()->json(['message' => 'O ID informado não é de um user válido', 'code' => 406], 406);
 
-            $cadastros = Cadastro::find($id);
+            $users = User::find($id);
 
-            if ($cadastros == null) {
+            if ($users == null) {
                 return response()->json([
-                    'message' => 'O cadastro buscado não existe',
+                    'message' => 'O user buscado não existe',
                     'code' => 204
                 ], 204);
             }
@@ -64,13 +64,13 @@ class CadastroController extends Controller
         };
 
         return response()->json([
-            'data' => $cadastros,
+            'data' => $users,
             'code' => 200
         ], 200);
     }
 
     // POST
-    public function insertCadastro(Request $request)
+    public function insertUser(Request $request)
     {
         if ($this->validateEmptyField($request)) return response()->json([
             'message' => 'os campos: nome, email e telefone são obrigatórios',
@@ -85,21 +85,21 @@ class CadastroController extends Controller
         }
 
         try {
-            $cadastroExist = Cadastro::where('email', $request->email)
+            $userExist = User::where('email', $request->email)
                 ->orWhere('telefone', $request->telefone)
                 ->exists();
 
-            if ($cadastroExist) return response()->json(['message' => 'Já existe um cadastro com o mesmo email ou telefone :(', 'code' => 406], 406);
+            if ($userExist) return response()->json(['message' => 'Já existe um user com o mesmo email ou telefone :(', 'code' => 406], 406);
 
-            $cadastro = Cadastro::create([
+            $user = User::create([
                 'nome' => $request->nome,
                 'email' => $request->email,
                 'telefone' => $request->telefone,
             ]);
 
             return response()->json([
-                'message' => 'O cadastro foi inserido com sucesso!',
-                'data' => $cadastro,
+                'message' => 'O user foi inserido com sucesso!',
+                'data' => $user,
                 'code' => 201
             ], 201);
         } catch (\Exception $e) {
@@ -112,7 +112,7 @@ class CadastroController extends Controller
     }
 
     // PUT
-    public function updateCadastro(Request $request, $id = null)
+    public function updateUser(Request $request, $id = null)
     {
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
@@ -129,14 +129,14 @@ class CadastroController extends Controller
         }
 
         try {
-            if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do cadastro'], 400);
+            if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do user'], 400);
 
-            $cadastroExist = Cadastro::where('id', $id)
+            $userExist = User::where('id', $id)
                 ->exists();
 
-            if (!$cadastroExist) return response()->json(['message' => 'O ID do cadastro informado não existe', 'code' => 406], 406);
+            if (!$userExist) return response()->json(['message' => 'O ID do user informado não existe', 'code' => 406], 406);
 
-            Cadastro::where('id', $id)
+            User::where('id', $id)
                 ->update([
                     'nome' => $request->nome,
                     'email' => $request->email,
@@ -144,8 +144,8 @@ class CadastroController extends Controller
                 ]);
 
             return response()->json([
-                'message' => 'O cadastro foi atualizado com sucesso!',
-                'data' => Cadastro::find($id),
+                'message' => 'O user foi atualizado com sucesso!',
+                'data' => User::find($id),
                 'code' => 201
             ], 201);
         } catch (\Exception $e) {
@@ -158,28 +158,28 @@ class CadastroController extends Controller
     }
 
     // DELETE
-    public function deleteCadastro($id = null)
+    public function deleteUser($id = null)
     {
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
-        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do cadastro', 'code' => 400], 400);
+        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do user', 'code' => 400], 400);
 
         try {
-            $cadastroExist = Cadastro::where('id', $id)
+            $userExist = User::where('id', $id)
                 ->exists();
 
-            if (!$cadastroExist) return response()->json(['message' => 'O ID informado não é de um cadastro válido', 'code' => 406], 406);
+            if (!$userExist) return response()->json(['message' => 'O ID informado não é de um user válido', 'code' => 406], 406);
 
-            Cadastro::where('id', $id)->delete();
+            User::where('id', $id)->delete();
 
             return response()->json([
-                'message' => 'O cadastro com ID ' . $id . ' foi deletado com sucesso!',
-                'data' => cadastro::all(),
+                'message' => 'O user com ID ' . $id . ' foi deletado com sucesso!',
+                'data' => user::all(),
                 'code' => 200
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Ocorreu um erro ao tentar deletar o cadastro',
+                'message' => 'Ocorreu um erro ao tentar deletar o user',
                 'info' => $e->getMessage(),
                 'code' => 500
             ], 500);

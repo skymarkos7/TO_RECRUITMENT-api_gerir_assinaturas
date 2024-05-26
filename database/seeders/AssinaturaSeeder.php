@@ -14,7 +14,7 @@ class AssinaturaSeeder extends Seeder
      */
     public function run(): void
     {
-        $cadastros = [
+        $users = [
             'XYZKXX',
             'PUIOST',
             'TYVMSD',
@@ -69,7 +69,7 @@ class AssinaturaSeeder extends Seeder
         try {
             for ($i = 0; $i < 10; $i++) {
                 Assinatura::create([
-                    'cadastro' => $cadastros[$i],
+                    'user' => $users[$i],
                     'descricao' => $descricao[$i],
                     'vencimento' => Carbon::now()->addDays($i+5),
                     'valor' => $valor[$i],
@@ -77,11 +77,11 @@ class AssinaturaSeeder extends Seeder
                 ]);
             }
 
-            dd('Os cadastros foram inseridos com sucesso!');
+            dd('Os users foram inseridos com sucesso!');
 
         } catch (\Exception $e) {
 
-            dd('Ocorreu um erro ao realizar a inserção dos cadastros '. $e->getMessage());
+            dd('Ocorreu um erro ao realizar a inserção dos users '. $e->getMessage());
         }
     }
 }

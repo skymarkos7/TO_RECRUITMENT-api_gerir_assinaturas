@@ -8,10 +8,10 @@
 	},
 	"item": [
 		{
-			"name": "Cadastro",
+			"name": "User",
 			"item": [
 				{
-					"name": "Inclusão de Cadastro",
+					"name": "Inclusão de User",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -41,7 +41,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/cadastro/insert",
+							"raw": "http://localhost:8000/api/user/insert",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -49,7 +49,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"cadastro",
+								"user",
 								"insert"
 							]
 						}
@@ -57,12 +57,12 @@
 					"response": []
 				},
 				{
-					"name": "Listagem de cadastros",
+					"name": "Listagem de users",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/cadastro/getall",
+							"raw": "http://localhost:8000/api/user/getall",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -70,7 +70,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"cadastro",
+								"user",
 								"getall"
 							]
 						}
@@ -78,12 +78,12 @@
 					"response": []
 				},
 				{
-					"name": "Listar único cadastro",
+					"name": "Listar único user",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/cadastro/get/1",
+							"raw": "http://localhost:8000/api/user/get/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -91,7 +91,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"cadastro",
+								"user",
 								"get",
 								"1"
 							]
@@ -100,7 +100,7 @@
 					"response": []
 				},
 				{
-					"name": "Edição de Cadastro",
+					"name": "Edição de User",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -114,7 +114,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/cadastro/update/1",
+							"raw": "http://localhost:8000/api/user/update/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -122,7 +122,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"cadastro",
+								"user",
 								"update",
 								"1"
 							]
@@ -131,12 +131,12 @@
 					"response": []
 				},
 				{
-					"name": "Exclusão de cadastro",
+					"name": "Exclusão de user",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/cadastro/delete/1",
+							"raw": "http://localhost:8000/api/user/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -144,7 +144,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"cadastro",
+								"user",
 								"delete",
 								"1"
 							]
@@ -166,9 +166,9 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "cadastro",
+									"key": "user",
 									"value": "XHTAGFS",
-									"description": "string | código infromado durante a criação de um cadastro",
+									"description": "string | código infromado durante a criação de um user",
 									"type": "text"
 								},
 								{
@@ -262,7 +262,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cadastro\" : \"XHTAGFS\",\r\n    \"descricao\" : \"amazon prime\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status_fatura\" : \"emitido\"  // emitido ou aguardando\r\n}",
+							"raw": "{\r\n    \"user\" : \"XHTAGFS\",\r\n    \"descricao\" : \"amazon prime\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status_fatura\" : \"emitido\"  // emitido ou aguardando\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -322,9 +322,9 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "cadastro",
+									"key": "user",
 									"value": "XHTAGFS",
-									"description": "string | código infromado durante a criação de um cadastro",
+									"description": "string | código infromado durante a criação de um user",
 									"type": "text"
 								},
 								{
@@ -425,7 +425,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cadastro\" : \"XHSTJYYTT\",\r\n    \"assinatura\" : \"2\",\r\n    \"descricao\" : \"mercado libre\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status\" : \"pago\" // pago ou pendente\r\n}",
+							"raw": "{\r\n    \"user\" : \"XHSTJYYTT\",\r\n    \"assinatura\" : \"2\",\r\n    \"descricao\" : \"mercado libre\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status\" : \"pago\" // pago ou pendente\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

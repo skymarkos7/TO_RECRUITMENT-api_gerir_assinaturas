@@ -1,13 +1,13 @@
 # Desafio Assinaturas
 
-Desenvolvimento de uma API para cobrar assinaturas de seus cadastros em **PHP** e **PostgreSQL**
+Desenvolvimento de uma API para cobrar assinaturas de seus users em **PHP** e **PostgreSQL**
 
 ## Deverá conter
-**Cadastros**: ID, Codigo, Nome, Email e Telefone
+**Users**: ID, Codigo, Nome, Email e Telefone
 
-**Assinaturas**: ID, Cadastro, Descrição, Valor
+**Assinaturas**: ID, User, Descrição, Valor
 
-**Faturas**: ID, Cadastro, Assinatura, Descrição, Vencimento, Valor.
+**Faturas**: ID, User, Assinatura, Descrição, Vencimento, Valor.
 
 ## Instruções 🌄
 
@@ -17,7 +17,7 @@ Desenvolvimento de uma API para cobrar assinaturas de seus cadastros em **PHP** 
 4. Estão faltando alguns campos propositalmente, você deve criá-los
 
 ## Como o Sistema Deve Funcionar ⚙️
- - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Cadastros
+ - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Users
  - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Assinaturas
  - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Faturas
  - Deve possuir uma Task que verifica uma vez ao dia todas as assinaturas que vencem daqui a 10 dias e converta elas em faturas.

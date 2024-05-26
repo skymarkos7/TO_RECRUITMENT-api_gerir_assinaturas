@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assinatura;
-use App\Models\Cadastro;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -74,7 +74,7 @@ class AssinaturaController extends Controller
     public function insertAssinaturas(Request $request)
     {
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: cadastro_id, descrição, vencimento e valor são obrigatórios',
+            'message' => 'os campos: user_id, descrição, vencimento e valor são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -86,19 +86,19 @@ class AssinaturaController extends Controller
         }
 
         try {
-            $cadastroExist = Cadastro::where('id', $request->cadastro_id)
+            $userExist = User::where('id', $request->user_id)
                 ->exists();
 
-            if (!$cadastroExist)
+            if (!$userExist)
                 return response()->json([
-                        'message' => 'O cadastro_id informado não é um ID válido, favor informe um ID de cadastro válido',
+                        'message' => 'O user_id informado não é um ID válido, favor informe um ID de user válido',
                         'code' => 406
                     ],
                     406
                 );
 
             $assinatura = Assinatura::create([
-                'cadastro_id' => $request->cadastro_id,
+                'user_id' => $request->user_id,
                 'descricao' => $request->descricao,
                 'vencimento' => $request->vencimento,
                 'valor' => $request->valor,
@@ -125,7 +125,7 @@ class AssinaturaController extends Controller
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: cadastro_id, descricao, vencimento, valor, e status_fatura são obrigatórios',
+            'message' => 'os campos: user_id, descricao, vencimento, valor, e status_fatura são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -144,15 +144,15 @@ class AssinaturaController extends Controller
 
             if (!$assinaturaExist) return response()->json(['message' => 'O ID da assinatura informada na URL não existe', 'code' => 406], 406);
 
-            $cadastroExist = Cadastro::where('id', $request->cadastro_id)
+            $userExist = user::where('id', $request->user_id)
                 ->exists();
 
-            if (!$cadastroExist)
-                return response()->json(['message' => 'O cadastro_id informado não é um código válido, favor informe um ID de cadastro válido', 'code' => 406], 406);
+            if (!$userExist)
+                return response()->json(['message' => 'O user_id informado não é um código válido, favor informe um ID de user válido', 'code' => 406], 406);
 
             Assinatura::where('id', $id)
                 ->update([
-                    'cadastro_id' => $request->cadastro_id,
+                    'user_id' => $request->user_id,
                     'descricao' => $request->descricao,
                     'vencimento' => $request->vencimento,
                     'valor' => $request->valor,
@@ -204,7 +204,7 @@ class AssinaturaController extends Controller
 
     function validateEmptyField($request)
     {
-        if (!isset($request->cadastro_id) || !isset($request->descricao) || !isset($request->vencimento) || !isset($request->valor) || !isset($request->status_fatura)) {
+        if (!isset($request->user_id) || !isset($request->descricao) || !isset($request->vencimento) || !isset($request->valor) || !isset($request->status_fatura)) {
             return true;
         } else {
             return false;
@@ -214,7 +214,7 @@ class AssinaturaController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'cadastro_id' => 'required|integer',
+            'user_id' => 'required|integer',
             'descricao' => 'required|string',
             'vencimento' => 'required|date',
             'valor' => 'required|integer',

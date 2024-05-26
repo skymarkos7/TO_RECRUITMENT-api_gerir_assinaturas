@@ -6,28 +6,28 @@ info:
 servers:
   - url: http://localhost:8000/api
 tags:
-  - name: Cadastro
-    description: Cadastro workflow
+  - name: User
+    description: User workflow
   - name: Assinatura
     description: Assinatura workflow
   - name: Fatura
     description: Fatura workflow
 paths:
-  /cadastro/getall:
+  /user/getall:
     get:
-      summary: Lista todos os cadastros
+      summary: Lista todos os users
       responses:
         '200':
           description: Sucesso
       tags:
-        - Cadastro
-  /cadastro/get/{id}:
+        - User
+  /user/get/{id}:
     get:
-      summary: Obtém um cadastro pelo ID
+      summary: Obtém um user pelo ID
       parameters:
         - name: id
           in: path
-          description: ID do cadastro a ser obtido
+          description: ID do user a ser obtido
           required: true
           schema:
             type: integer
@@ -35,30 +35,30 @@ paths:
         '200':
           description: Sucesso
         '404':
-          description: Cadastro não encontrado
+          description: User não encontrado
       tags:
-        - Cadastro
-  /cadastro/insert:
+        - User
+  /user/insert:
     post:
-      summary: Insere um novo cadastro
+      summary: Insere um novo user
       # requestBody:
       #   required: true
       #   content:
       #     application/json:
       #       schema:
-      #         $ref: '#/components/schemas/Cadastro'
+      #         $ref: '#/components/schemas/User'
       responses:
         '201':
-          description: Cadastro criado com sucesso
+          description: User criado com sucesso
       tags:
-        - Cadastro
-  /cadastro/update/{id}:
+        - User
+  /user/update/{id}:
     put:
-      summary: Atualiza um cadastro existente pelo ID
+      summary: Atualiza um user existente pelo ID
       parameters:
         - name: id
           in: path
-          description: ID do cadastro a ser atualizado
+          description: ID do user a ser atualizado
           required: true
           schema:
             type: integer
@@ -67,31 +67,31 @@ paths:
       #   content:
       #     application/json:
       #       schema:
-      #         $ref: '#/components/schemas/Cadastro'
+      #         $ref: '#/components/schemas/User'
       responses:
         '200':
-          description: Cadastro atualizado com sucesso
+          description: User atualizado com sucesso
         '404':
-          description: Cadastro não encontrado
+          description: User não encontrado
       tags:
-        - Cadastro
-  /cadastro/delete/{id}:
+        - User
+  /user/delete/{id}:
     delete:
-      summary: Exclui um cadastro pelo ID
+      summary: Exclui um user pelo ID
       parameters:
         - name: id
           in: path
-          description: ID do cadastro a ser excluído
+          description: ID do user a ser excluído
           required: true
           schema:
             type: integer
       responses:
         '204':
-          description: Cadastro excluído com sucesso
+          description: User excluído com sucesso
         '404':
-          description: Cadastro não encontrado
+          description: User não encontrado
       tags:
-        - Cadastro
+        - User
   /assinatura/getall:
     get:
       summary: Lista todas as assinaturas

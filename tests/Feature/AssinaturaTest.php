@@ -15,7 +15,7 @@ class AssinaturaTest extends TestCase
     public function test_donnot_creating_a_new_assinatura_without_a_required_field(): void
     {
         $data = [
-            // "cadastro" => "XYYYTT", // sending without code
+            // "user" => "XYYYTT", // sending without code
             "descricao" => "mercado livre",
             "valor" => "20",
             "status_fatura" => "aguardando",

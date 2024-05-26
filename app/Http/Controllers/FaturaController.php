@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assinatura;
-use App\Models\Cadastro;
+use App\Models\User;
 use App\Models\Fatura;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -90,7 +90,7 @@ class FaturaController extends Controller
         }
 
         try {
-            if (!$this->validatorCadastroAndAssinatura($request)) {
+            if (!$this->validatorUserAndAssinatura($request)) {
                 return response()->json([
                     'message' => 'O ID da assinatura informados não é válido, favor informe um ID de assinatura válido',
                     'code' => 406
@@ -160,7 +160,7 @@ class FaturaController extends Controller
 
             if (!$faturaExist) return response()->json(['message' => 'O ID da fatura informada na não existe', 'code' => 406], 406);
 
-            if (!$this->validatorCadastroAndAssinatura($request)) {
+            if (!$this->validatorUserAndAssinatura($request)) {
                 return response()->json([
                     'message' => 'O ID da assinatura informados não é válido, favor informe um ID de assinatura válido',
                     'code' => 406
@@ -241,7 +241,7 @@ class FaturaController extends Controller
         return $validator->fails() ? $validator : false;
     }
 
-    function validatorCadastroAndAssinatura($request)
+    function validatorUserAndAssinatura($request)
     {
         $assinaturaExist = Assinatura::where('id', $request->assinatura_id)
             ->exists();

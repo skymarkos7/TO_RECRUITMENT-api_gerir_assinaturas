@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('assinaturas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('cadastro_id');
-            $table->foreign('cadastro_id')->references('id')->on('cadastros');
+            $table->foreignId('user_id')->constrained('users'); // create a column user_id with a type bigInter, from users.id
             $table->string('status_fatura');
             $table->string('descricao');
             $table->string('valor');
