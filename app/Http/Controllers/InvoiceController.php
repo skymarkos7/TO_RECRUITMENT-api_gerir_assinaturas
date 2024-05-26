@@ -76,59 +76,47 @@ class InvoiceController extends Controller
     // POST
     public function insertInvoice(Request $request)
     {
-        // return $request;
-        if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: signature_id, description, due_date, amount e status são obrigatórios',
-            'code' => 400
-        ], 400);
-
-        if ($this->validatorFields($request) !== false) {
-            return response()->json([
-                'errors' => $this->validatorFields($request)->errors(),
-                'code' => 422
-            ], 422);
-        }
+        if (!$request->signature_id) return response()->json(['message' => 'O campo signature_id é obrigatório', 'code' => 400], 400);
 
         try {
-            if (!$this->validatorUserAndSignature($request)) {
-                return response()->json([
-                    'message' => 'O ID da signature informados não é válido, favor informe um ID de signature válido',
-                    'code' => 406
-                ], 406);
-            }
-
-            $invoiceEmitida = Signature::where('id', $request->signature_id)
-                ->where('status_invoice', 'emitido')
+            $invoiceSignature = Invoice::where('signature_id', $request->signature_id)
                 ->exists();
 
-            if ($invoiceEmitida) {
-                return response()->json([
-                    'message' => 'A invoice para essa signature já foi emitida, insira uma outra signature.',
-                    'code' => 306
-                ], 306);
-            }
+            if ($invoiceSignature) return response()->json([
+                'message' => 'A fatura dessa assinatura já foi gerada',
+                'code' => 400
+            ], 400);
+
+            $signature = Signature::where('id', $request->signature_id)
+                ->first();
+
+            if (!$signature) return response()->json([
+                'message' => 'O ID não é de uma assinatura válida',
+                'code' => 400
+            ], 400);
 
             $invoice = Invoice::create([
-                'signature_id' => $request->signature_id,
-                'description' => $request->description,
-                'due_date' => $request->due_date,
-                'amount' => $request->amount,
-                'status' => $request->status,
+                'signature_id'=> $signature->id,
+                'description' => $signature->description,
+                'due_date' => Carbon::now()->addDays(10),
+                'amount' => $signature->due_date,
+                'status' => 'pendente',
             ]);
 
-            Signature::where('id', $request->signature_id)
+            Signature::where('id', $signature->id)
                 ->update([
                     'status_invoice' => 'emitido',
-                ]);
+            ]);
 
             return response()->json([
-                'message' => 'A invoice foi criada com sucesso!',
-                'data' => $invoice,
-                'code' => 201
-            ], 201);
+                        'message' => 'A invoice foi criada com sucesso!',
+                        'data' => $invoice,
+                        'code' => 201
+                    ], 201);
+
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Ocorreu um erro ao realizar a inserção',
+                'message' => 'Ocorreu um erro ao tentar criar a fatura',
                 'info' => $e->getMessage(),
                 'code' => 500
             ], 500);
@@ -138,12 +126,16 @@ class InvoiceController extends Controller
     // PUT
     public function updateInvoice(Request $request, $id = null)
     {
+        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da fatura que será editada'], 400);
+
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: signature_id, description, due_date, amount e status são obrigatórios',
+            'message' => 'os campos: decription, due_date, amount e status são obrigatórios',
             'code' => 400
         ], 400);
+
+
 
         if ($this->validatorFields($request) !== false) {
             return response()->json([
@@ -153,23 +145,21 @@ class InvoiceController extends Controller
         }
 
         try {
-            if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da invoice'], 400);
-
             $invoiceExist = Invoice::where('id', $id)
                 ->exists();
 
-            if (!$invoiceExist) return response()->json(['message' => 'O ID da invoice informada na não existe', 'code' => 406], 406);
+            if (!$invoiceExist) return response()->json(['message' => 'O ID da fatura informada não existe', 'code' => 406], 406);
 
-            if (!$this->validatorUserAndSignature($request)) {
-                return response()->json([
-                    'message' => 'O ID da signature informados não é válido, favor informe um ID de signature válido',
-                    'code' => 406
-                ], 406);
-            }
+            // if (!$this->validatorUserAndSignature($request)) {
+            //     return response()->json([
+            //         'message' => 'O ID da assinatura informada não é válido, favor informe um ID válido',
+            //         'code' => 406
+            //     ], 406);
+            // }
 
             Invoice::where('id', $id)
                 ->update([
-                    'signature_id' => $request->signature_id,
+                    // 'signature_id' => $request->signature_id,
                     'description' => $request->description,
                     'due_date' => $request->due_date,
                     'amount' => $request->amount,
@@ -181,6 +171,7 @@ class InvoiceController extends Controller
                 'data' => Invoice::find($id),
                 'code' => 201
             ], 201);
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Ocorreu um erro ao realizar a atualização',
@@ -206,13 +197,13 @@ class InvoiceController extends Controller
             Invoice::where('id', $id)->delete();
 
             return response()->json([
-                'message' => 'A invoice com ID ' . $id . ' foi deletada com sucesso!',
+                'message' => 'A fatura com ID ' . $id . ' foi deletada com sucesso!',
                 'data' => Invoice::all(),
                 'code' => 200
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Ocorreu um erro ao tentar deletar a invoice',
+                'message' => 'Ocorreu um erro ao tentar deletar a fatura',
                 'info' => $e->getMessage(),
                 'code' => 500
             ], 500);
@@ -221,7 +212,7 @@ class InvoiceController extends Controller
 
     function validateEmptyField($request)
     {
-        if (!isset($request->signature_id) || !isset($request->description) || !isset($request->due_date) || !isset($request->amount) || !isset($request->status)) {
+        if (!isset($request->description) || !isset($request->due_date) || !isset($request->amount) || !isset($request->status)) {
             return true;
         } else {
             return false;
@@ -231,21 +222,12 @@ class InvoiceController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'signature_id' => 'required|integer',
             'description' => 'required|string',
             'due_date' => 'required|date',
-            'amount' => 'required|integer',
+            'amount' => 'required|numeric',
             'status' => 'required|string|in:pago,pendente',
         ]);
 
         return $validator->fails() ? $validator : false;
-    }
-
-    function validatorUserAndSignature($request)
-    {
-        $signatureExist = Signature::where('id', $request->signature_id)
-            ->exists();
-
-        return $signatureExist ? true : false;
     }
 }

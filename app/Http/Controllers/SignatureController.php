@@ -73,11 +73,6 @@ class SignatureController extends Controller
     // POST
     public function insertSignatures(Request $request)
     {
-        if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: user_id, descrição, due_date e amount são obrigatórios',
-            'code' => 400
-        ], 400);
-
         if ($this->validatorFields($request) !== false) {
             return response()->json([
                 'errors' => $this->validatorFields($request)->errors(),
@@ -217,7 +212,7 @@ class SignatureController extends Controller
             'user_id' => 'required|integer',
             'description' => 'required|string',
             'due_date' => 'required|date',
-            'amount' => 'required|integer',
+            'amount' => 'required|numeric',
             'status_invoice' => 'required|string|in:emitido,aguardando',
         ]);
 
