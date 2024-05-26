@@ -4,8 +4,8 @@
 - ✅ População das tabelas por seeder.
 - ✅ Requisições a api laravel seguindo as regras para uma [api restful](https://www.dio.me/articles/entendendo-as-diferencas-entre-apis-rest-e-restful)
 - ✅ job assincrono definido para ser executado 1 vez ao dia
-- ✅ Uma [collection](docs/desafio-api-de-assinaturas-jobs-assincrôno.postman_collection.json) para acionar as rotas ou um [front em vue.js](https://github.com/skymarkos7/TO_RECRUITMENT-front_gerir_assinaturas-) para integragir com a api.
-- ✅ [Documentação em swagger](docs\swagger.yaml) das rotas da api, o conteúdo do arquivo swagger pode ser colado no [site oficial](https://editor.swagger.io/) para visualização rápida da documentação 
+- ✅ Uma [collection](resources\Docs\postman_collection.json) para acionar as rotas ou um [front em vue.js](https://github.com/skymarkos7/TO_RECRUITMENT-front_gerir_assinaturas-) para integragir com a api.
+- ✅ [Documentação em swagger](resources\Docs\swagger.yml) das rotas da api, o conteúdo do arquivo swagger pode ser colado no [site oficial](https://editor.swagger.io/) para visualização rápida da documentação 
 - ✅ Unit test - [testes de feature](tests/Feature/SignatureTest.php) aplicado as regras da api.
 - ✅ Querys montadas com [eloquent](https://laravel.com/docs/11.x/eloquent) para facilitar a troca de banco.
 - ✅ Aplicado soft-delete, permitindo a recuperação de dados importantes.

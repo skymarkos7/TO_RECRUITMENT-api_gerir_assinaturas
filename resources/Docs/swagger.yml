@@ -1,0 +1,409 @@
+openapi: 3.0.0
+info:
+  title: "API de Assinaturas"
+  description: "Documentação da API de assinaturas para usuários e assinaturas"
+  version: "1.0.0"
+servers:
+  - url: "http://localhost:8000"
+paths:
+  /api/user/insert:
+    post:
+      summary: "Inclusão de Usuário"
+      description: "Este endpoint permite a inserção de um novo usuário."
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "Nome do usuário"
+                mail:
+                  type: string
+                  format: email
+                  description: "Endereço de email do usuário"
+                phone:
+                  type: string
+                  description: "Número de telefone do usuário no formato brasileiro"
+      responses:
+        '200':
+          description: "Usuário criado com sucesso"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      mail:
+                        type: string
+                      phone:
+                        type: string
+                      updated_at:
+                        type: string
+                      created_at:
+                        type: string
+                      id:
+                        type: integer
+                  code:
+                    type: integer
+
+  /api/user/getall:
+    get:
+      summary: "Listagem de usuários"
+      description: "Este endpoint recupera todos os usuários."
+      responses:
+        '200':
+          description: "Lista de usuários"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                        mail:
+                          type: string
+                        phone:
+                          type: string
+                        remember_token:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+                        deleted_at:
+                          type: string
+                          nullable: true
+                  code:
+                    type: number
+
+  /api/user/get/{id}:
+    get:
+      summary: "Listar único usuário"
+      description: "Este endpoint recupera os detalhes de um usuário específico."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ID do usuário"
+      responses:
+        '200':
+          description: "Detalhes do usuário"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      mail:
+                        type: string
+                      phone:
+                        type: string
+                      remember_token:
+                        type: string
+                        nullable: true
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+                      deleted_at:
+                        type: string
+                        nullable: true
+                  code:
+                    type: integer
+
+  /api/user/update/{id}:
+    put:
+      summary: "Edição de Usuário"
+      description: "O HTTP PUT atualiza as informações do usuário no endpoint especificado."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ID do usuário"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                mail:
+                  type: string
+                phone:
+                  type: string
+      responses:
+        '200':
+          description: "Usuário atualizado com sucesso"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      mail:
+                        type: string
+                      phone:
+                        type: string
+                      remember_token:
+                        type: string
+                        nullable: true
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+                      deleted_at:
+                        type: string
+                        nullable: true
+                  code:
+                    type: integer
+
+  /api/user/delete/{id}:
+    delete:
+      summary: "Exclusão de cadastro"
+      description: "Este endpoint exclui um usuário específico."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ID do usuário"
+      responses:
+        '200':
+          description: "Usuário excluído com sucesso"
+
+  /api/signature/insert:
+    post:
+      summary: "Inclusão de assinatura"
+      description: "Este endpoint permite a inserção de uma nova assinatura."
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: "ID do usuário"
+                description:
+                  type: string
+                  description: "Descrição da assinatura"
+                amount:
+                  type: number
+                  description: "Valor da assinatura"
+                status_invoice:
+                  type: string
+                  description: "Status da fatura (emitido ou aguardando)"
+                due_date:
+                  type: string
+                  format: date-time
+                  description: "Data de vencimento"
+      responses:
+        '200':
+          description: "Assinatura criada com sucesso"
+
+  /api/signature/getall:
+    get:
+      summary: "Listagem de assinaturas"
+      description: "Este endpoint recupera todas as assinaturas."
+      responses:
+        '200':
+          description: "Lista de assinaturas"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        status_invoice:
+                          type: string
+                        description:
+                          type: string
+                        amount:
+                          type: number
+                        due_date:
+                          type: string
+                          format: date-time
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+                        deleted_at:
+                          type: string
+                          nullable: true
+                  code:
+                    type: integer
+
+  /api/signature/get/{id}:
+    get:
+      summary: "Listar único assinatura"
+      description: "Este endpoint recupera uma assinatura específica."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ID da assinatura"
+      responses:
+        '200':
+          description: "Detalhes da assinatura"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      status_invoice:
+                        type: string
+                      description:
+                        type: string
+                      amount:
+                        type: number
+                      due_date:
+                        type: string
+                        format: date-time
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+                      deleted_at:
+                        type: string
+                        nullable: true
+                  code:
+                    type: integer
+
+  /api/signature/update/{id}:
+    put:
+      summary: "Edição de assinatura"
+      description: "Este endpoint permite a atualização de uma assinatura existente."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ID da assinatura"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                description:
+                  type: string
+                due_date:
+                  type: string
+                  format: date-time
+                amount:
+                  type: number
+                status_invoice:
+                  type: string
+                  enum:
+                    - emitido
+                    - aguardando
+      responses:
+        '200':
+          description: "Assinatura atualizada com sucesso"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      status_invoice:
+                        type: string
+                      description:
+                        type: string
+                      amount:
+                        type: number
+                      due_date:
+                        type: string
+                        format: date-time
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+                      deleted_at:
+                        type: string
+                        nullable: true
+                  code:
+                    type: integer
+
+  /api/signature/delete/{id}:
+    delete:
+      summary: "Exclusão de assinatura"
+      description: "Este endpoint exclui uma assinatura específica."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ID da assinatura"
+      responses:
+        '200':
+          description: "Assinatura excluída com sucesso"

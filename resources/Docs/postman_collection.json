@@ -8,10 +8,10 @@
 	},
 	"item": [
 		{
-			"name": "User",
+			"name": "Cadastro",
 			"item": [
 				{
-					"name": "Inclusão de User",
+					"name": "Inclusão de Usuário",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -26,14 +26,14 @@
 								},
 								{
 									"key": "mail",
-									"value": "marcos@host.com",
-									"description": "string | mail",
+									"value": "marquinhos@host.com",
+									"description": "string | email format",
 									"type": "text"
 								},
 								{
 									"key": "phone",
 									"value": "(82) 99690-9200",
-									"description": "integer | (82) 99690-9200",
+									"description": "string | brasiliam number format",
 									"type": "text"
 								}
 							]
@@ -50,12 +50,13 @@
 								"user",
 								"insert"
 							]
-						}
+						},
+						"description": "### Insert User\n\nThis endpoint allows the insertion of a new user.\n\n#### Request Body\n\n- `name` (text): The name of the user.\n    \n- `mail` (text): The email address of the user in email format.\n    \n- `phone` (text): The phone number of the user in Brazilian number format.\n    \n\n#### Response\n\nThe response is in JSON format and has the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\"type\": \"string\"},\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"name\": {\"type\": \"string\"},\n                \"mail\": {\"type\": \"string\"},\n                \"phone\": {\"type\": \"string\"},\n                \"updated_at\": {\"type\": \"string\"},\n                \"created_at\": {\"type\": \"string\"},\n                \"id\": {\"type\": \"integer\"}\n            }\n        },\n        \"code\": {\"type\": \"integer\"}\n    }\n}\n\n ```"
 					},
 					"response": []
 				},
 				{
-					"name": "Listagem de users",
+					"name": "Listagem de usuários",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -71,17 +72,18 @@
 								"user",
 								"getall"
 							]
-						}
+						},
+						"description": "### GET /api/user/getall\n\nThis endpoint retrieves all users.\n\n#### Request\n\nThis is a simple GET request and does not require a request body.\n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"data\": [\n        {\n            \"id\": \"number\",\n            \"name\": \"string\",\n            \"mail\": \"string\",\n            \"phone\": \"string\",\n            \"remember_token\": \"string or null\",\n            \"created_at\": \"string\",\n            \"updated_at\": \"string\",\n            \"deleted_at\": \"string or null\"\n        }\n    ],\n    \"code\": \"number\"\n}\n\n ```\n\nThe `data` array contains information about each user, including their `id`, `name`, `mail`, `phone`, `remember_token`, `created_at`, `updated_at`, and `deleted_at` fields. The `code` field indicates the status code of the response."
 					},
 					"response": []
 				},
 				{
-					"name": "Listar único user",
+					"name": "Listar único usuário",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/user/get/1",
+							"raw": "http://localhost:8000/api/user/get/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -91,20 +93,21 @@
 								"api",
 								"user",
 								"get",
-								"1"
+								"2"
 							]
-						}
+						},
+						"description": "### Get User Details\n\nThis endpoint retrieves the details of a specific user.\n\nRemenber to send a ID from valid user\n\n#### Request\n\n- Method: GET\n    \n- URL: `http://localhost:8000/api/user/get/2`\n    \n\n#### Response\n\n- Status: 200\n    \n- Content-Type: application/json\n    \n- Body:\n    \n    ``` json\n      {\n          \"data\": {\n              \"id\": 0,\n              \"name\": \"\",\n              \"mail\": \"\",\n              \"phone\": \"\",\n              \"remember_token\": null,\n              \"created_at\": \"\",\n              \"updated_at\": \"\",\n              \"deleted_at\": null\n          },\n          \"code\": 0\n      }\n    \n     ```"
 					},
 					"response": []
 				},
 				{
-					"name": "Edição de User",
+					"name": "Edição de Usuário",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"deltan beltrão\",\r\n    \"mail\": \"deltan@beltrao.com\",\r\n    \"phone\": \"82954655\"\r\n}",
+							"raw": "{\r\n    \"name\": \"deltan beltrão\",\r\n    \"mail\": \"deltan@beltrao.com\",\r\n    \"phone\": \"(82) 99690-9200\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -112,7 +115,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/user/update/1",
+							"raw": "http://localhost:8000/api/user/update/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -122,19 +125,20 @@
 								"api",
 								"user",
 								"update",
-								"1"
+								"2"
 							]
-						}
+						},
+						"description": "The HTTP PUT request updates user information at the specified endpoint.\n\nInsert ID from user inURL\n\n### Request Body\n\n- The request body should be in raw format.\n    \n- It should include the following parameters:\n    \n    - `name` (string): The name of the user.\n        \n    - `mail` (string): The email address of the user.\n        \n    - `phone` (string): The phone number of the user.\n        \n\n### Response\n\nThe response is in JSON format and includes the following fields:\n\n- `message` (string): A message related to the response.\n    \n- `data` (object): An object containing user information with the following fields:\n    \n    - `id` (number): The user ID.\n        \n    - `name` (string): The name of the user.\n        \n    - `mail` (string): The email address of the user.\n        \n    - `phone` (string): The phone number of the user.\n        \n    - `remember_token` (string or null): A token for user authentication.\n        \n    - `created_at` (string): The date and time of user creation.\n        \n    - `updated_at` (string): The date and time of the last update.\n        \n    - `deleted_at` (string or null): The date and time of deletion, if applicable.\n        \n- `code` (number): A code related to the response.\n    \n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    },\n    \"data\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"number\"\n        },\n        \"name\": {\n          \"type\": \"string\"\n        },\n        \"mail\": {\n          \"type\": \"string\"\n        },\n        \"phone\": {\n          \"type\": \"string\"\n        },\n        \"remember_token\": {\n          \"type\": [\"string\", \"null\"]\n        },\n        \"created_at\": {\n          \"type\": \"string\"\n        },\n        \"updated_at\": {\n          \"type\": \"string\"\n        },\n        \"deleted_at\": {\n          \"type\": [\"string\", \"null\"]\n        }\n      }\n    },\n    \"code\": {\n      \"type\": \"number\"\n    }\n  }\n}\n\n ```"
 					},
 					"response": []
 				},
 				{
-					"name": "Exclusão de user",
+					"name": "Exclusão de cadastro",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/user/delete/1",
+							"raw": "http://localhost:8000/api/user/delete/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -144,7 +148,7 @@
 								"api",
 								"user",
 								"delete",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -153,7 +157,7 @@
 			]
 		},
 		{
-			"name": "Signature",
+			"name": "Assinatura",
 			"item": [
 				{
 					"name": "Inclusão de assinatura",
@@ -165,7 +169,7 @@
 							"formdata": [
 								{
 									"key": "user_id",
-									"value": "1",
+									"value": "3",
 									"description": "integer",
 									"type": "text"
 								},
@@ -212,7 +216,7 @@
 					"response": []
 				},
 				{
-					"name": "Listagem de signatures",
+					"name": "Listagem de assinaturas",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -228,12 +232,13 @@
 								"signature",
 								"getall"
 							]
-						}
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve all signature data. The request does not require any parameters in the request body or URL. The response will have a status code of 200 and a JSON content type. The response body will contain an array of signature data objects, each including id, user_id, status_invoice, description, amount, due_date, created_at, updated_at, and deleted_at fields."
 					},
 					"response": []
 				},
 				{
-					"name": "Listar único signature",
+					"name": "Listar único assinatura",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -250,18 +255,19 @@
 								"get",
 								"5"
 							]
-						}
+						},
+						"description": "This endpoint retrieves a signature with the given ID.\n\nThe response for this request can be documented as a JSON schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": {\"type\": \"integer\"},\n                \"user_id\": {\"type\": \"integer\"},\n                \"status_invoice\": {\"type\": \"string\"},\n                \"description\": {\"type\": \"string\"},\n                \"amount\": {\"type\": \"string\"},\n                \"due_date\": {\"type\": \"string\"},\n                \"created_at\": {\"type\": \"string\"},\n                \"updated_at\": {\"type\": \"string\"},\n                \"deleted_at\": {\"type\": [\"string\", \"null\"]}\n            }\n        },\n        \"code\": {\"type\": \"integer\"}\n    }\n}\n\n ```"
 					},
 					"response": []
 				},
 				{
-					"name": "Edição de signature",
+					"name": "Edição de assinatura",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\" : \"1\",\r\n    \"description\" : \"amazon prime\",\r\n    \"due_date\" : \"2024-06-20 11:59:49\",\r\n    \"amount\" : 15,\r\n    \"status_invoice\" : \"emitido\"  // emitido ou aguardando\r\n}",
+							"raw": "{\r\n    \"user_id\" : \"3\",\r\n    \"description\" : \"amazon prime\",\r\n    \"due_date\" : \"2024-06-20 11:59:49\",\r\n    \"amount\" : 15,\r\n    \"status_invoice\" : \"emitido\"  // emitido ou aguardando\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -281,17 +287,18 @@
 								"update",
 								"8"
 							]
-						}
+						},
+						"description": "\n### Update Signature\nThis endpoint allows the user to update a signature with the provided information.\n\n#### Request\n- Method: PUT\n- URL: `http://localhost:8000/api/signature/update/8`\n- Headers:\n  - Content-Type: application/json\n- Body:\n  - `user_id` (string): The ID of the user.\n  - `description` (string): Description of the signature.\n  - `due_date` (string): Due date of the signature.\n  - `amount` (number): Amount of the signature.\n  - `status_invoice` (string): Status of the invoice (emitido or aguardando).\n\n#### Response\nThe response is in JSON format and follows the schema below:\n```json\n{\n  \"message\": \"\",\n  \"data\": {\n    \"id\": 0,\n    \"user_id\": 0,\n    \"status_invoice\": \"\",\n    \"description\": \"\",\n    \"amount\": \"\",\n    \"due_date\": \"\",\n    \"created_at\": \"\",\n    \"updated_at\": \"\",\n    \"deleted_at\": null\n  },\n  \"code\": 0\n}\n```\n"
 					},
 					"response": []
 				},
 				{
-					"name": "Exclusão de signature",
+					"name": "Exclusão de assinatura",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/signature/delete/1",
+							"raw": "http://localhost:8000/api/signature/delete/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -301,19 +308,20 @@
 								"api",
 								"signature",
 								"delete",
-								"1"
+								"3"
 							]
-						}
+						},
+						"description": "### Delete Signature\n\nThis endpoint is used to delete a specific signature with the given ID.\n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"integer\"\n                    },\n                    \"user_id\": {\n                        \"type\": \"integer\"\n                    },\n                    \"status_invoice\": {\n                        \"type\": \"string\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"amount\": {\n                        \"type\": \"string\"\n                    },\n                    \"due_date\": {\n                        \"type\": \"string\"\n                    },\n                    \"created_at\": {\n                        \"type\": \"string\"\n                    },\n                    \"updated_at\": {\n                        \"type\": \"string\"\n                    },\n                    \"deleted_at\": {\n                        \"type\": [\"string\", \"null\"]\n                    }\n                }\n            }\n        },\n        \"code\": {\n            \"type\": \"integer\"\n        }\n    }\n}\n\n ```"
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Invoice",
+			"name": "Fatura",
 			"item": [
 				{
-					"name": "Inclusão de invoice",
+					"name": "Inclusão de fatura",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -323,31 +331,7 @@
 								{
 									"key": "signature_id",
 									"value": "1",
-									"description": "string | id da signature que ao qual a invoice pertence",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "mercado",
-									"description": "string ",
-									"type": "text"
-								},
-								{
-									"key": "due_date",
-									"value": "2024-06-20 11:59:49",
-									"description": "datetime | ex: 2024-06-15 11:59:49",
-									"type": "text"
-								},
-								{
-									"key": "amount",
-									"value": "55",
-									"description": "integer",
-									"type": "text"
-								},
-								{
-									"key": "status",
-									"value": "pendente",
-									"description": "string | pago ou pendente",
+									"description": "integer| id da assinatura que ao qual a fatura pertence",
 									"type": "text"
 								}
 							]
@@ -364,12 +348,13 @@
 								"invoice",
 								"insert"
 							]
-						}
+						},
+						"description": "### POST /api/invoice/insert\n\nThis endpoint is used to insert a new invoice.\n\n#### Form-Data Parameters\n\n- `signature_id` (text, required): Integer ID of the signature to which the invoice belongs.\n    \n\n#### Response\n\nThe response for this request is a JSON object with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"signature_id\": {\n                    \"type\": \"integer\"\n                },\n                \"description\": {\n                    \"type\": \"string\"\n                },\n                \"due_date\": {\n                    \"type\": \"string\"\n                },\n                \"amount\": {\n                    \"type\": \"string\"\n                },\n                \"status\": {\n                    \"type\": \"string\"\n                },\n                \"updated_at\": {\n                    \"type\": \"string\"\n                },\n                \"created_at\": {\n                    \"type\": \"string\"\n                },\n                \"id\": {\n                    \"type\": \"integer\"\n                }\n            }\n        },\n        \"code\": {\n            \"type\": \"integer\"\n        }\n    }\n}\n\n ```"
 					},
 					"response": []
 				},
 				{
-					"name": "Listagem de invoice",
+					"name": "Listagem de fatura",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -385,12 +370,13 @@
 								"invoice",
 								"getall"
 							]
-						}
+						},
+						"description": "### GET /api/invoice/getall\n\nThis endpoint retrieves all the invoices.\n\n#### Request\n\nThis is a simple GET request that does not require a request body.\n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"data\": [\n        {\n            \"id\": \"number\",\n            \"signature_id\": \"number\",\n            \"description\": \"string\",\n            \"due_date\": \"string\",\n            \"amount\": \"string\",\n            \"status\": \"string\",\n            \"remember_token\": \"string or null\",\n            \"created_at\": \"string\",\n            \"updated_at\": \"string\",\n            \"deleted_at\": \"string or null\"\n        }\n    ],\n    \"code\": \"number\"\n}\n\n ```\n\nThe `data` key contains an array of objects, each representing an invoice with its respective properties such as `id`, `signature_id`, `description`, `due_date`, `amount`, `status`, `remember_token`, `created_at`, `updated_at`, and `deleted_at`.\n\nThe `code` key represents the status code of the response."
 					},
 					"response": []
 				},
 				{
-					"name": "Listar único invoice",
+					"name": "Listar único fatura",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -407,18 +393,19 @@
 								"get",
 								"1"
 							]
-						}
+						},
+						"description": "The endpoint retrieves the details of an invoice with the given ID.\n\n### Response\n\nThe response will be in JSON format and will have the following schema:\n\n``` json\n{\n    \"data\": {\n        \"id\": 0,\n        \"signature_id\": 0,\n        \"description\": \"\",\n        \"due_date\": \"\",\n        \"amount\": \"\",\n        \"status\": \"\",\n        \"remember_token\": null,\n        \"created_at\": \"\",\n        \"updated_at\": \"\",\n        \"deleted_at\": null\n    },\n    \"code\": 0\n}\n\n ```"
 					},
 					"response": []
 				},
 				{
-					"name": "Edição de invoice",
+					"name": "Edição de fatura",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"signature_id\" : \"1\",\r\n    \"signature\" : \"2\",\r\n    \"description\" : \"mercado libre\",\r\n    \"due_date\" : \"2024-06-20 11:59:49\",\r\n    \"amount\" : 15,\r\n    \"status\" : \"pago\" // pago ou pendente\r\n}",
+							"raw": "{    \r\n    \"description\" : \"mercado libre\",\r\n    \"due_date\" : \"2024-06-20 11:59:49\",\r\n    \"amount\" : 15.5,\r\n    \"status\" : \"pago\" // pago ou pendente\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -426,7 +413,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/invoice/update/1",
+							"raw": "http://localhost:8000/api/invoice/update/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -436,19 +423,19 @@
 								"api",
 								"invoice",
 								"update",
-								"1"
+								"4"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Exclusão de invoice",
+					"name": "Exclusão de fatura",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/invoice/delete/3",
+							"raw": "http://localhost:8000/api/invoice/delete/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -458,9 +445,10 @@
 								"api",
 								"invoice",
 								"delete",
-								"3"
+								"2"
 							]
-						}
+						},
+						"description": "The API endpoint sends a DELETE request to delete a specific invoice with the ID 1.\n\n### Response\n\nThe response is in JSON format and has the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"integer\"\n                    },\n                    \"signature_id\": {\n                        \"type\": \"integer\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"due_date\": {\n                        \"type\": \"string\"\n                    },\n                    \"amount\": {\n                        \"type\": \"string\"\n                    },\n                    \"status\": {\n                        \"type\": \"string\"\n                    },\n                    \"remember_token\": {\n                        \"type\": [\"string\", \"null\"]\n                    },\n                    \"created_at\": {\n                        \"type\": \"string\"\n                    },\n                    \"updated_at\": {\n                        \"type\": \"string\"\n                    },\n                    \"deleted_at\": {\n                        \"type\": [\"string\", \"null\"]\n                    }\n                }\n            }\n        },\n        \"code\": {\n            \"type\": \"integer\"\n        }\n    }\n}\n\n ```"
 					},
 					"response": []
 				}
