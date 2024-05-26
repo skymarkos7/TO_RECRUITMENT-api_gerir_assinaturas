@@ -72,11 +72,6 @@ class UserController extends Controller
     // POST
     public function insertUser(Request $request)
     {
-        if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: name, mail e phone são obrigatórios',
-            'code' => 400
-        ], 400);
-
         if ($this->validatorFields($request) !== false) {
             return response()->json([
                 'errors' => $this->validatorFields($request)->errors(),
@@ -89,7 +84,7 @@ class UserController extends Controller
                 ->orWhere('phone', $request->phone)
                 ->exists();
 
-            if ($userExist) return response()->json(['message' => 'Já existe um user com o mesmo mail ou phone :(', 'code' => 406], 406);
+            if ($userExist) return response()->json(['message' => 'Já existe um usuário com o mesmo email ou telefone. :(', 'code' => 406], 406);
 
             $user = User::create([
                 'name' => $request->name,
@@ -114,12 +109,9 @@ class UserController extends Controller
     // PUT
     public function updateUser(Request $request, $id = null)
     {
-        if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
+        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do user'], 400);
 
-        if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: name, mail e phone são obrigatórios',
-            'code' => 400
-        ], 400);
+        if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validatorFields($request) !== false) {
             return response()->json([
@@ -129,12 +121,16 @@ class UserController extends Controller
         }
 
         try {
-            if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID do user'], 400);
-
             $userExist = User::where('id', $id)
                 ->exists();
 
             if (!$userExist) return response()->json(['message' => 'O ID do user informado não existe', 'code' => 406], 406);
+
+            $userDuplicate = User::where('mail', $request->mail)
+                ->orWhere('phone', $request->phone)
+                ->exists();
+
+            if ($userDuplicate) return response()->json(['message' => 'O email ou telefone informados já pertencem a outro usuário', 'code' => 406], 406);
 
             User::where('id', $id)
                 ->update([
@@ -199,7 +195,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'mail' => 'required|mail',
+            'mail' => 'required|email',
             'phone' => 'required|celular_com_ddd',
         ]);
 

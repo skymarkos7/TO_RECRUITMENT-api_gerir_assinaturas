@@ -8,6 +8,8 @@
 - ✅ [Documentação em swagger](docs\swagger.yaml) das rotas da api, o conteúdo do arquivo swagger pode ser colado no [site oficial](https://editor.swagger.io/) para visualização rápida da documentação 
 - ✅ Unit test - [testes de feature](tests/Feature/SignatureTest.php) aplicado as regras da api.
 - ✅ Querys montadas com [eloquent](https://laravel.com/docs/11.x/eloquent) para facilitar a troca de banco.
+- ✅ Aplicado soft-delete, permitindo a recuperação de dados importantes.
+- ✅ Tratamento na entrada de dados.
 
 
 
