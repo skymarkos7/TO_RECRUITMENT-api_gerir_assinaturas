@@ -1,5 +1,5 @@
 ## Oque você verá aqui? 🎥 👀
-- ✅ CRUD no banco de dados com [postgree](https://www.postgresql.org/)
+- ✅ CRUD no banco de dados com [mysql](https://www.mysql.com/)
 - ✅ Criação das tabelas por migration.
 - ✅ População das tabelas por seeder.
 - ✅ Requisições a api laravel seguindo as regras para uma [api restful](https://www.dio.me/articles/entendendo-as-diferencas-entre-apis-rest-e-restful)
@@ -11,15 +11,16 @@
 
 
 ## Rodar o projeto ⚡
-- Clone o projeto com `git clone`  
-- Adicione as dependencias do projeto com `composer install`
-- Com servidor de banco de dados rodando e configurado execute o comando  `php artisan migrate`  para rodar migrations.
-    - OBS: Para essa api foi utilizado o banco de dados POSTGREE entretanto é possível utilizar outros bancos, bastanto configurar o arquivo [.env](.env)
-- Popule as tabelas executando as seeds a baixo:
-    - `php artisan db:seed --class=CadastroSeeder`
-    - `php artisan db:seed --class=AssinaturaSeeder`
-    - `php artisan db:seed --class=FaturaSeeder`
-- Execute o servidor de API com `php artisan serve`   
+1. Clone o projeto com `git clone`  
+2. Adicione as dependencias do projeto com `composer install`
+3. Com servidor de banco de dados rodando e configurado execute o comando  `php artisan migrate`  para rodar migrations.
+    - OBS: Para essa api foi utilizado o banco de dados MYSQL entretanto é possível utilizar outros bancos, bastanto configurar o arquivo [.env](.env)
+4. Popule as tabelas executando as seeds a baixo:
+    1. `php artisan db:seed --class=CadastroSeeder`
+    2. `php artisan db:seed --class=AssinaturaSeeder`
+    3. `php artisan db:seed --class=FaturaSeeder`
+    
+5. Execute o servidor de API com `php artisan serve`   
 
 ## Task que converte assinatura com vencimento igual ou inferior a 10 dias em fatura  ⏳🕐
 - Listar as tasks que podem ser agendadas `php artisan schedule:list`
