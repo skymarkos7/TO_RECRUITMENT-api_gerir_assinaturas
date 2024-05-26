@@ -109,7 +109,7 @@ class InvoiceController extends Controller
             ]);
 
             return response()->json([
-                        'message' => 'A invoice foi criada com sucesso!',
+                        'message' => 'A fatura foi criada com sucesso!',
                         'data' => $invoice,
                         'code' => 201
                     ], 201);
