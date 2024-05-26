@@ -8,10 +8,10 @@ servers:
 tags:
   - name: User
     description: User workflow
-  - name: Assinatura
-    description: Assinatura workflow
-  - name: Fatura
-    description: Fatura workflow
+  - name: Signature
+    description: Signature workflow
+  - name: Invoice
+    description: Invoice workflow
 paths:
   /user/getall:
     get:
@@ -92,21 +92,21 @@ paths:
           description: User não encontrado
       tags:
         - User
-  /assinatura/getall:
+  /signature/getall:
     get:
-      summary: Lista todas as assinaturas
+      summary: Lista todas as signatures
       responses:
         '200':
           description: Sucesso
       tags:
-        - Assinatura
-  /assinatura/get/{id}:
+        - Signature
+  /signature/get/{id}:
     get:
-      summary: Obtém uma assinatura pelo ID
+      summary: Obtém uma signature pelo ID
       parameters:
         - name: id
           in: path
-          description: ID da assinatura a ser obtida
+          description: ID da signature a ser obtida
           required: true
           schema:
             type: integer
@@ -114,30 +114,30 @@ paths:
         '200':
           description: Sucesso
         '404':
-          description: Assinatura não encontrada
+          description: Signature não encontrada
       tags:
-        - Assinatura
-  /assinatura/insert:
+        - Signature
+  /signature/insert:
     post:
-      summary: Insere uma nova assinatura
+      summary: Insere uma nova signature
       # requestBody:
       #   required: true
       #   content:
       #     application/json:
       #       schema:
-      #         $ref: '#/components/schemas/Assinatura'
+      #         $ref: '#/components/schemas/Signature'
       responses:
         '201':
-          description: Assinatura criada com sucesso
+          description: Signature criada com sucesso
       tags:
-        - Assinatura
-  /assinatura/update/{id}:
+        - Signature
+  /signature/update/{id}:
     put:
-      summary: Atualiza uma assinatura existente pelo ID
+      summary: Atualiza uma signature existente pelo ID
       parameters:
         - name: id
           in: path
-          description: ID da assinatura a ser atualizada
+          description: ID da signature a ser atualizada
           required: true
           schema:
             type: integer
@@ -146,46 +146,46 @@ paths:
       #   content:
       #     application/json:
       #       schema:
-      #         $ref: '#/components/schemas/Assinatura'
+      #         $ref: '#/components/schemas/Signature'
       responses:
         '200':
-          description: Assinatura atualizada com sucesso
+          description: Signature atualizada com sucesso
         '404':
-          description: Assinatura não encontrada
+          description: Signature não encontrada
       tags:
-        - Assinatura
-  /assinatura/delete/{id}:
+        - Signature
+  /signature/delete/{id}:
     delete:
-      summary: Exclui uma assinatura pelo ID
+      summary: Exclui uma signature pelo ID
       parameters:
         - name: id
           in: path
-          description: ID da assinatura a ser excluída
+          description: ID da signature a ser excluída
           required: true
           schema:
             type: integer
       responses:
         '204':
-          description: Assinatura excluída com sucesso
+          description: Signature excluída com sucesso
         '404':
-          description: Assinatura não encontrada
+          description: Signature não encontrada
       tags:
-        - Assinatura
-  /fatura/getall:
+        - Signature
+  /invoice/getall:
     get:
-      summary: Lista todas as faturas
+      summary: Lista todas as invoices
       responses:
         '200':
           description: Sucesso
       tags:
-        - Fatura
-  /fatura/get/{id}:
+        - Invoice
+  /invoice/get/{id}:
     get:
-      summary: Obtém uma fatura pelo ID
+      summary: Obtém uma invoice pelo ID
       parameters:
         - name: id
           in: path
-          description: ID da fatura a ser obtida
+          description: ID da invoice a ser obtida
           required: true
           schema:
             type: integer
@@ -193,30 +193,30 @@ paths:
         '200':
           description: Sucesso
         '404':
-          description: Fatura não encontrada
+          description: Invoice não encontrada
       tags:
-        - Fatura
-  /fatura/insert:
+        - Invoice
+  /invoice/insert:
     post:
-      summary: Insere uma nova fatura
+      summary: Insere uma nova invoice
       # requestBody:
       #   required: true
       #   content:
       #     application/json:
       #       schema:
-      #         $ref: '#/components/schemas/Fatura'
+      #         $ref: '#/components/schemas/Invoice'
       responses:
         '201':
-          description: Fatura criada com sucesso
+          description: Invoice criada com sucesso
       tags:
-        - Fatura
-  /fatura/update/{id}:
+        - Invoice
+  /invoice/update/{id}:
     put:
-      summary: Atualiza uma fatura existente pelo ID
+      summary: Atualiza uma invoice existente pelo ID
       parameters:
         - name: id
           in: path
-          description: ID da fatura a ser atualizada
+          description: ID da invoice a ser atualizada
           required: true
           schema:
             type: integer
@@ -225,28 +225,28 @@ paths:
         # content:
           # application/json:
             # schema:
-              # $ref: '#/components/schemas/Fatura'
+              # $ref: '#/components/schemas/Invoice'
       responses:
         '200':
-          description: Fatura atualizada com sucesso
+          description: Invoice atualizada com sucesso
         '404':
-          description: Fatura não encontrada
+          description: Invoice não encontrada
       tags:
-        - Fatura
-  /fatura/delete/{id}:
+        - Invoice
+  /invoice/delete/{id}:
     delete:
-      summary: Exclui uma fatura pelo ID
+      summary: Exclui uma invoice pelo ID
       parameters:
         - name: id
           in: path
-          description: ID da fatura a ser excluída
+          description: ID da invoice a ser excluída
           required: true
           schema:
             type: integer
       responses:
         '204':
-          description: Fatura excluída com sucesso
+          description: Invoice excluída com sucesso
         '404':
-          description: Fatura não encontrada
+          description: Invoice não encontrada
       tags:
-        - Fatura
+        - Invoice

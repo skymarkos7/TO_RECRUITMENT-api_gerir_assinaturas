@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('assinaturas', function (Blueprint $table) {
+        Schema::create('signature', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users'); // create a column user_id with a type bigInter, from users.id
-            $table->string('status_fatura');
-            $table->string('descricao');
-            $table->string('valor');
-            $table->timestamp('vencimento');
+            $table->foreignId('user_id')->constrained('user'); // create a column user_id with a type bigInter, from users.id
+            $table->string('status_invoice');
+            $table->string('description');
+            $table->string('amount');
+            $table->timestamp('due_date');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

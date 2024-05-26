@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faturas', function (Blueprint $table) {
+        Schema::create('invoice', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('assinatura_id')->constrained('assinaturas');
-            $table->string('descricao');
-            $table->timestamp('vencimento');
-            $table->string('valor');
+            $table->foreignId('signature_id')->constrained('signature');
+            $table->string('description');
+            $table->string('amount');
             $table->string('status');
+            $table->timestamp('due_date');
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faturas');
+        Schema::dropIfExists('invoices');
     }
 };

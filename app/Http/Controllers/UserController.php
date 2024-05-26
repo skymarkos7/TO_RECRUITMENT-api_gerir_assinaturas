@@ -73,7 +73,7 @@ class UserController extends Controller
     public function insertUser(Request $request)
     {
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: nome, email e telefone são obrigatórios',
+            'message' => 'os campos: name, mail e phone são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -85,16 +85,16 @@ class UserController extends Controller
         }
 
         try {
-            $userExist = User::where('email', $request->email)
-                ->orWhere('telefone', $request->telefone)
+            $userExist = User::where('mail', $request->mail)
+                ->orWhere('phone', $request->phone)
                 ->exists();
 
-            if ($userExist) return response()->json(['message' => 'Já existe um user com o mesmo email ou telefone :(', 'code' => 406], 406);
+            if ($userExist) return response()->json(['message' => 'Já existe um user com o mesmo mail ou phone :(', 'code' => 406], 406);
 
             $user = User::create([
-                'nome' => $request->nome,
-                'email' => $request->email,
-                'telefone' => $request->telefone,
+                'name' => $request->name,
+                'mail' => $request->mail,
+                'phone' => $request->phone,
             ]);
 
             return response()->json([
@@ -117,7 +117,7 @@ class UserController extends Controller
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: nome, email e telefone são obrigatórios',
+            'message' => 'os campos: name, mail e phone são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -138,9 +138,9 @@ class UserController extends Controller
 
             User::where('id', $id)
                 ->update([
-                    'nome' => $request->nome,
-                    'email' => $request->email,
-                    'telefone' => $request->telefone,
+                    'name' => $request->name,
+                    'mail' => $request->mail,
+                    'phone' => $request->phone,
                 ]);
 
             return response()->json([
@@ -188,7 +188,7 @@ class UserController extends Controller
 
     function validateEmptyField($request)
     {
-        if (!isset($request->email) || !isset($request->nome) || !isset($request->telefone)) {
+        if (!isset($request->mail) || !isset($request->name) || !isset($request->phone)) {
             return true;
         } else {
             return false;
@@ -198,9 +198,9 @@ class UserController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'nome' => 'required|string',
-            'email' => 'required|email',
-            'telefone' => 'required|celular_com_ddd',
+            'name' => 'required|string',
+            'mail' => 'required|mail',
+            'phone' => 'required|celular_com_ddd',
         ]);
 
         return $validator->fails() ? $validator : false;

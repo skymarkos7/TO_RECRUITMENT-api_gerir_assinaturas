@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Assinatura extends Model
+class Signature extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'signature';
+
     protected $fillable = [
         'user_id',
-        'descricao',
-        'vencimento',
-        'valor',
-        'status_fatura',
+        'description',
+        'due_date',
+        'amount',
+        'status_invoice',
     ];
 }

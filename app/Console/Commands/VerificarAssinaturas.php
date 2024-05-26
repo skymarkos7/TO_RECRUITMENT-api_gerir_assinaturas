@@ -2,19 +2,19 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Assinatura;
-use App\Models\Fatura;
+use App\Models\Signature;
+use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class VerificarAssinaturas extends Command
+class VerificarSignatures extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:verificar-assinaturas';
+    protected $signature = 'app:verificar-signatures';
 
     /**
      * The console command description.
@@ -29,40 +29,40 @@ class VerificarAssinaturas extends Command
     public function handle()
     {
         // Get all assignatures which expire in less than 10 days
-        $assinaturas = Assinatura::whereDate('vencimento', '<=', Carbon::today()->addDays(10))
-            ->where('status_fatura', 'aguardando')
+        $signatures = Signature::whereDate('due_date', '<=', Carbon::today()->addDays(10))
+            ->where('status_invoice', 'aguardando')
             ->get();
 
-        if (count($assinaturas) > 0) {
-            $quantityAssinaturas = count($assinaturas);
+        if (count($signatures) > 0) {
+            $quantitySignatures = count($signatures);
             try {
-                foreach ($assinaturas as $assinatura) {
-                    Fatura::create([
-                        'user' => $assinatura->user,
-                        'assinatura' => $assinatura->id,
-                        'descricao' => $assinatura->descricao,
-                        'vencimento' => $assinatura->vencimento,
-                        'valor' => $assinatura->valor,
+                foreach ($signatures as $signature) {
+                    Invoice::create([
+                        'user' => $signature->user,
+                        'signature' => $signature->id,
+                        'description' => $signature->description,
+                        'due_date' => $signature->due_date,
+                        'amount' => $signature->amount,
                         'status' => 'pendente',
                     ]);
 
-                    Assinatura::where('id', $assinatura->id)
+                    Signature::where('id', $signature->id)
                         ->update([
-                            'status_fatura' => 'emitido',
+                            'status_invoice' => 'emitido',
                         ]);
                 }
 
-                $this->info('Foram lançadas '. $quantityAssinaturas . ' novas faturas');
+                $this->info('Foram lançadas '. $quantitySignatures . ' novas invoices');
 
             } catch (\Exception $e) {
                 return response()->json([
-                    'message' => 'Ocorreu um erro ao realizar o lançamento das faturas',
+                    'message' => 'Ocorreu um erro ao realizar o lançamento das invoices',
                     'info' => $e->getMessage(),
                     'code' => 500
                 ], 500);
         }
         } else {
-            $this->info('Não há assinaturas com data de vencimento menor ou igual a 10 dias');
+            $this->info('Não há signatures com data de due_date menor ou igual a 10 dias');
         }
     }
 }

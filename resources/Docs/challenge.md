@@ -1,27 +1,27 @@
-# Desafio Assinaturas
+# Desafio Signatures
 
-Desenvolvimento de uma API para cobrar assinaturas de seus users em **PHP** e **PostgreSQL**
+Desenvolvimento de uma API para cobrar assinaturas de seus users em **PHP**
 
 ## Deverá conter
-**Users**: ID, Codigo, Nome, Email e Telefone
+**Users**: ID, Codigo, name, mail e phone
 
-**Assinaturas**: ID, User, Descrição, Valor
+**Signatures**: ID, User, Descrição, Valor
 
-**Faturas**: ID, User, Assinatura, Descrição, Vencimento, Valor.
+**Invoices**: ID, User, Signature, Descrição, Vencimento, Valor.
 
 ## Instruções 🌄
 
 1. Faça um fork do projeto para sua conta pessoal
-2. Crie uma branch com o padrão: `desafio-seu-nome`
+2. Crie uma branch com o padrão: `desafio-seu-name`
 3. Submeta seu código criando um Pull Request
 4. Estão faltando alguns campos propositalmente, você deve criá-los
 
 ## Como o Sistema Deve Funcionar ⚙️
  - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Users
- - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Assinaturas
- - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Faturas
- - Deve possuir uma Task que verifica uma vez ao dia todas as assinaturas que vencem daqui a 10 dias e converta elas em faturas.
- - A Task não pode converter faturas já convertidas hoje.
+ - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Signatures
+ - Deve possuir um CRUD Listagem/Inclusão/Edição/Exclusão de Invoices
+ - Deve possuir uma Task que verifica uma vez ao dia todas as assinaturas que vencem daqui a 10 dias e converta elas em invoices.
+ - A Task não pode converter invoices já convertidas hoje.
  
 ## Você deve 🧯
 - Utilizar composer

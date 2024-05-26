@@ -3,8 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AssinaturaController;
-use App\Http\Controllers\FaturaController;
+use App\Http\Controllers\SignatureController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Foundation\Auth\User;
 
 /**
@@ -21,27 +21,27 @@ Route::put('/user/update/{id?}', [UserController::class, 'updateUser']);
 Route::delete('/user/delete/{id?}', [UserController::class, 'deleteUser']);
 
 /**
- * Assinatura group
+ * Signature group
  */
-Route::get('/assinatura/getall', [AssinaturaController::class, 'getAllAssinaturas']);
+Route::get('/signature/getall', [SignatureController::class, 'getAllSignatures']);
 
-Route::get('/assinatura/get/{id?}', [AssinaturaController::class, 'getAssinatura']);
+Route::get('/signature/get/{id?}', [SignatureController::class, 'getSignature']);
 
-Route::post('/assinatura/insert', [AssinaturaController::class, 'insertAssinaturas']);
+Route::post('/signature/insert', [SignatureController::class, 'insertSignatures']);
 
-Route::put('/assinatura/update/{id?}', [AssinaturaController::class, 'updateAssinatura']);
+Route::put('/signature/update/{id?}', [SignatureController::class, 'updateSignature']);
 
-Route::delete('/assinatura/delete/{id?}', [AssinaturaController::class, 'deleteAssinatura']);
+Route::delete('/signature/delete/{id?}', [SignatureController::class, 'deleteSignature']);
 
 /**
- * Fatura group
+ * Invoice group
  */
-Route::get('/fatura/getall', [FaturaController::class, 'getAllFaturas']);
+Route::get('/invoice/getall', [InvoiceController::class, 'getAllInvoices']);
 
-Route::get('/fatura/get/{id?}', [FaturaController::class, 'getFatura']);
+Route::get('/invoice/get/{id?}', [InvoiceController::class, 'getInvoice']);
 
-Route::post('/fatura/insert', [FaturaController::class, 'insertFatura']);
+Route::post('/invoice/insert', [InvoiceController::class, 'insertInvoice']);
 
-Route::put('/fatura/update/{id?}', [FaturaController::class, 'updateFatura']);
+Route::put('/invoice/update/{id?}', [InvoiceController::class, 'updateInvoice']);
 
-Route::delete('/fatura/delete/{id?}', [FaturaController::class, 'deleteFatura']);
+Route::delete('/invoice/delete/{id?}', [InvoiceController::class, 'deleteInvoice']);

@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Fatura extends Model
+class Invoice extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'invoice';
+
     protected $fillable = [
-        'assinatura_id',
-        'descricao',
-        'vencimento',
-        'valor',
+        'signature_id',
+        'description',
+        'due_date',
+        'amount',
         'status',
     ];
 }

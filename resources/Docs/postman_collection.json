@@ -19,19 +19,19 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "nome",
+									"key": "name",
 									"value": "Marcos Lourenço",
 									"description": "string",
 									"type": "text"
 								},
 								{
-									"key": "email",
+									"key": "mail",
 									"value": "marcos@host.com",
-									"description": "string | email",
+									"description": "string | mail",
 									"type": "text"
 								},
 								{
-									"key": "telefone",
+									"key": "phone",
 									"value": "(82) 99690-9200",
 									"description": "integer | (82) 99690-9200",
 									"type": "text"
@@ -104,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"deltan beltrão\",\r\n    \"email\": \"deltan@beltrao.com\",\r\n    \"telefone\": \"82954655\"\r\n}",
+							"raw": "{\r\n    \"name\": \"deltan beltrão\",\r\n    \"mail\": \"deltan@beltrao.com\",\r\n    \"phone\": \"82954655\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -153,7 +153,7 @@
 			]
 		},
 		{
-			"name": "Assinatura",
+			"name": "Signature",
 			"item": [
 				{
 					"name": "Inclusão de assinatura",
@@ -170,25 +170,25 @@
 									"type": "text"
 								},
 								{
-									"key": "descricao",
+									"key": "description",
 									"value": "netflix",
 									"description": "string",
 									"type": "text"
 								},
 								{
-									"key": "valor",
+									"key": "amount",
 									"value": "35",
 									"description": "number",
 									"type": "text"
 								},
 								{
-									"key": "status_fatura",
+									"key": "status_invoice",
 									"value": "aguardando",
 									"description": "emitido ou aguardando",
 									"type": "text"
 								},
 								{
-									"key": "vencimento",
+									"key": "due_date",
 									"value": "2024-05-05 11:59:49",
 									"description": "date",
 									"type": "text"
@@ -196,7 +196,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/assinatura/insert",
+							"raw": "http://localhost:8000/api/signature/insert",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -204,7 +204,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"assinatura",
+								"signature",
 								"insert"
 							]
 						}
@@ -212,12 +212,12 @@
 					"response": []
 				},
 				{
-					"name": "Listagem de assinaturas",
+					"name": "Listagem de signatures",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/assinatura/getall",
+							"raw": "http://localhost:8000/api/signature/getall",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -225,7 +225,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"assinatura",
+								"signature",
 								"getall"
 							]
 						}
@@ -233,12 +233,12 @@
 					"response": []
 				},
 				{
-					"name": "Listar único assinatura",
+					"name": "Listar único signature",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/assinatura/get/5",
+							"raw": "http://localhost:8000/api/signature/get/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -246,7 +246,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"assinatura",
+								"signature",
 								"get",
 								"5"
 							]
@@ -255,13 +255,13 @@
 					"response": []
 				},
 				{
-					"name": "Edição de assinatura",
+					"name": "Edição de signature",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\" : \"1\",\r\n    \"descricao\" : \"amazon prime\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status_fatura\" : \"emitido\"  // emitido ou aguardando\r\n}",
+							"raw": "{\r\n    \"user_id\" : \"1\",\r\n    \"description\" : \"amazon prime\",\r\n    \"due_date\" : \"2024-06-20 11:59:49\",\r\n    \"amount\" : 15,\r\n    \"status_invoice\" : \"emitido\"  // emitido ou aguardando\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -269,7 +269,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/assinatura/update/8",
+							"raw": "http://localhost:8000/api/signature/update/8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -277,7 +277,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"assinatura",
+								"signature",
 								"update",
 								"8"
 							]
@@ -286,12 +286,12 @@
 					"response": []
 				},
 				{
-					"name": "Exclusão de assinatura",
+					"name": "Exclusão de signature",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/assinatura/delete/1",
+							"raw": "http://localhost:8000/api/signature/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -299,7 +299,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"assinatura",
+								"signature",
 								"delete",
 								"1"
 							]
@@ -310,10 +310,10 @@
 			]
 		},
 		{
-			"name": "Fatura",
+			"name": "Invoice",
 			"item": [
 				{
-					"name": "Inclusão de fatura",
+					"name": "Inclusão de invoice",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -321,25 +321,25 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "assinatura_id",
+									"key": "signature_id",
 									"value": "1",
-									"description": "string | id da assinatura que ao qual a fatura pertence",
+									"description": "string | id da signature que ao qual a invoice pertence",
 									"type": "text"
 								},
 								{
-									"key": "descricao",
+									"key": "description",
 									"value": "mercado",
 									"description": "string ",
 									"type": "text"
 								},
 								{
-									"key": "vencimento",
+									"key": "due_date",
 									"value": "2024-06-20 11:59:49",
 									"description": "datetime | ex: 2024-06-15 11:59:49",
 									"type": "text"
 								},
 								{
-									"key": "valor",
+									"key": "amount",
 									"value": "55",
 									"description": "integer",
 									"type": "text"
@@ -353,7 +353,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/fatura/insert",
+							"raw": "http://localhost:8000/api/invoice/insert",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -361,7 +361,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"fatura",
+								"invoice",
 								"insert"
 							]
 						}
@@ -369,12 +369,12 @@
 					"response": []
 				},
 				{
-					"name": "Listagem de fatura",
+					"name": "Listagem de invoice",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/fatura/getall",
+							"raw": "http://localhost:8000/api/invoice/getall",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -382,7 +382,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"fatura",
+								"invoice",
 								"getall"
 							]
 						}
@@ -390,12 +390,12 @@
 					"response": []
 				},
 				{
-					"name": "Listar único fatura",
+					"name": "Listar único invoice",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/fatura/get/1",
+							"raw": "http://localhost:8000/api/invoice/get/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -403,7 +403,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"fatura",
+								"invoice",
 								"get",
 								"1"
 							]
@@ -412,13 +412,13 @@
 					"response": []
 				},
 				{
-					"name": "Edição de fatura",
+					"name": "Edição de invoice",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assinatura_id\" : \"1\",\r\n    \"assinatura\" : \"2\",\r\n    \"descricao\" : \"mercado libre\",\r\n    \"vencimento\" : \"2024-06-20 11:59:49\",\r\n    \"valor\" : 15,\r\n    \"status\" : \"pago\" // pago ou pendente\r\n}",
+							"raw": "{\r\n    \"signature_id\" : \"1\",\r\n    \"signature\" : \"2\",\r\n    \"description\" : \"mercado libre\",\r\n    \"due_date\" : \"2024-06-20 11:59:49\",\r\n    \"amount\" : 15,\r\n    \"status\" : \"pago\" // pago ou pendente\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -426,7 +426,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/fatura/update/1",
+							"raw": "http://localhost:8000/api/invoice/update/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -434,7 +434,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"fatura",
+								"invoice",
 								"update",
 								"1"
 							]
@@ -443,12 +443,12 @@
 					"response": []
 				},
 				{
-					"name": "Exclusão de fatura",
+					"name": "Exclusão de invoice",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/fatura/delete/3",
+							"raw": "http://localhost:8000/api/invoice/delete/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -456,7 +456,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"fatura",
+								"invoice",
 								"delete",
 								"3"
 							]

@@ -15,39 +15,24 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $codigos = [
-            'XYZKVT',
-            'PUIOST',
-            'TYVMSD',
-            'HHDZXC',
-            'QLSDFG'
-        ];
-
-        $telefones = [
-            '82995946522',
-            '82994846555',
-            '11546523444',
-            '99546244526',
-            '15454568754'
-        ];
-
         $faker = Faker::create();
 
+        $qtUser = 10;
+
         try {
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < $qtUser; $i++) {
                 User::create([
-                    'codigo' => $codigos[$i],
-                    'nome' => $faker->name,
-                    'email' => $faker->email,
-                    'telefone' => $telefones[$i],
+                    'name' => $faker->name,
+                    'mail' => $faker->email,
+                    'phone' =>$faker->phoneNumber,
                 ]);
             }
 
-            dd('Os users foram inseridos com sucesso!');
+            dd($qtUser.' '.'usuários foram inseridos com sucesso!');
 
         } catch (\Exception $e) {
 
-            dd('Ocorreu um erro ao realizar a inserção dos users '. $e->getMessage());
+            dd('Ocorreu um erro ao realizar a inserção dos usuários '. $e->getMessage());
         }
     }
 }

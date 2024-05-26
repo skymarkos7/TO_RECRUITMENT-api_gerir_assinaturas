@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Assinatura;
+use App\Models\Signature;
 use App\Models\User;
-use App\Models\Fatura;
+use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Exists;
 
-class FaturaController extends Controller
+class InvoiceController extends Controller
 {
     // GET
-    public function getAllfaturas()
+    public function getAllinvoices()
     {
         try {
-            $faturas = Fatura::all();
+            $invoices = Invoice::all();
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Ocorreu um erro ao realizar a consulta.',
@@ -25,37 +25,37 @@ class FaturaController extends Controller
             ], 500);
         };
 
-        if (count($faturas) == 0) {
+        if (count($invoices) == 0) {
             return response()->json([
-                'message' => 'Ainda não há faturas cadastradas.',
+                'message' => 'Ainda não há invoices cadastradas.',
                 'code' => 204
             ], 204);
         }
 
         return response()->json([
-            'data' => $faturas,
+            'data' => $invoices,
             'code' => 200
         ], 200);
     }
 
     // GET
-    public function getFatura($id = null)
+    public function getInvoice($id = null)
     {
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
-        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da fatura', 'code' => 400], 400);
+        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da invoice', 'code' => 400], 400);
 
         try {
-            $faturaExist = Fatura::where('id', $id)
+            $invoiceExist = Invoice::where('id', $id)
                 ->exists();
 
-            if (!$faturaExist) return response()->json(['message' => 'O ID informado não é de uma fatura válida', 'code' => 406], 406);
+            if (!$invoiceExist) return response()->json(['message' => 'O ID informado não é de uma invoice válida', 'code' => 406], 406);
 
-            $faturas = Fatura::find($id);
+            $invoices = Invoice::find($id);
 
-            if ($faturas == null) {
+            if ($invoices == null) {
                 return response()->json([
-                    'message' => 'A fatura buscada não existe',
+                    'message' => 'A invoice buscada não existe',
                     'code' => 204
                 ], 204);
             }
@@ -68,17 +68,17 @@ class FaturaController extends Controller
         };
 
         return response()->json([
-            'data' => $faturas,
+            'data' => $invoices,
             'code' => 200
         ], 200);
     }
 
     // POST
-    public function insertFatura(Request $request)
+    public function insertInvoice(Request $request)
     {
         // return $request;
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: assinatura_id, descricao, vencimento, valor e status são obrigatórios',
+            'message' => 'os campos: signature_id, description, due_date, amount e status são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -90,40 +90,40 @@ class FaturaController extends Controller
         }
 
         try {
-            if (!$this->validatorUserAndAssinatura($request)) {
+            if (!$this->validatorUserAndSignature($request)) {
                 return response()->json([
-                    'message' => 'O ID da assinatura informados não é válido, favor informe um ID de assinatura válido',
+                    'message' => 'O ID da signature informados não é válido, favor informe um ID de signature válido',
                     'code' => 406
                 ], 406);
             }
 
-            $faturaEmitida = Assinatura::where('id', $request->assinatura_id)
-                ->where('status_fatura', 'emitido')
+            $invoiceEmitida = Signature::where('id', $request->signature_id)
+                ->where('status_invoice', 'emitido')
                 ->exists();
 
-            if ($faturaEmitida) {
+            if ($invoiceEmitida) {
                 return response()->json([
-                    'message' => 'A fatura para essa assinatura já foi emitida, insira uma outra assinatura.',
+                    'message' => 'A invoice para essa signature já foi emitida, insira uma outra signature.',
                     'code' => 306
                 ], 306);
             }
 
-            $fatura = Fatura::create([
-                'assinatura_id' => $request->assinatura_id,
-                'descricao' => $request->descricao,
-                'vencimento' => $request->vencimento,
-                'valor' => $request->valor,
+            $invoice = Invoice::create([
+                'signature_id' => $request->signature_id,
+                'description' => $request->description,
+                'due_date' => $request->due_date,
+                'amount' => $request->amount,
                 'status' => $request->status,
             ]);
 
-            Assinatura::where('id', $request->assinatura_id)
+            Signature::where('id', $request->signature_id)
                 ->update([
-                    'status_fatura' => 'emitido',
+                    'status_invoice' => 'emitido',
                 ]);
 
             return response()->json([
-                'message' => 'A fatura foi criada com sucesso!',
-                'data' => $fatura,
+                'message' => 'A invoice foi criada com sucesso!',
+                'data' => $invoice,
                 'code' => 201
             ], 201);
         } catch (\Exception $e) {
@@ -136,12 +136,12 @@ class FaturaController extends Controller
     }
 
     // PUT
-    public function updateFatura(Request $request, $id = null)
+    public function updateInvoice(Request $request, $id = null)
     {
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
         if ($this->validateEmptyField($request)) return response()->json([
-            'message' => 'os campos: assinatura_id, descricao, vencimento, valor e status são obrigatórios',
+            'message' => 'os campos: signature_id, description, due_date, amount e status são obrigatórios',
             'code' => 400
         ], 400);
 
@@ -153,32 +153,32 @@ class FaturaController extends Controller
         }
 
         try {
-            if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da fatura'], 400);
+            if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da invoice'], 400);
 
-            $faturaExist = Fatura::where('id', $id)
+            $invoiceExist = Invoice::where('id', $id)
                 ->exists();
 
-            if (!$faturaExist) return response()->json(['message' => 'O ID da fatura informada na não existe', 'code' => 406], 406);
+            if (!$invoiceExist) return response()->json(['message' => 'O ID da invoice informada na não existe', 'code' => 406], 406);
 
-            if (!$this->validatorUserAndAssinatura($request)) {
+            if (!$this->validatorUserAndSignature($request)) {
                 return response()->json([
-                    'message' => 'O ID da assinatura informados não é válido, favor informe um ID de assinatura válido',
+                    'message' => 'O ID da signature informados não é válido, favor informe um ID de signature válido',
                     'code' => 406
                 ], 406);
             }
 
-            Fatura::where('id', $id)
+            Invoice::where('id', $id)
                 ->update([
-                    'assinatura_id' => $request->assinatura_id,
-                    'descricao' => $request->descricao,
-                    'vencimento' => $request->vencimento,
-                    'valor' => $request->valor,
+                    'signature_id' => $request->signature_id,
+                    'description' => $request->description,
+                    'due_date' => $request->due_date,
+                    'amount' => $request->amount,
                     'status' => $request->status,
                 ]);
 
             return response()->json([
-                'message' => 'O fatura foi atualizado com sucesso!',
-                'data' => Fatura::find($id),
+                'message' => 'O invoice foi atualizado com sucesso!',
+                'data' => Invoice::find($id),
                 'code' => 201
             ], 201);
         } catch (\Exception $e) {
@@ -191,28 +191,28 @@ class FaturaController extends Controller
     }
 
     // DELETE
-    public function deletefatura($id = null)
+    public function deleteinvoice($id = null)
     {
         if (!is_numeric($id)) return response()->json(['message' => 'O ID deve ser um número inteiro', 'code' => 400], 400);
 
-        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da fatura', 'code' => 400], 400);
+        if (is_null($id)) return response()->json(['message' => 'Você esqueceu de informar o ID da invoice', 'code' => 400], 400);
 
         try {
-            $faturaExist = Fatura::where('id', $id)
+            $invoiceExist = Invoice::where('id', $id)
                 ->exists();
 
-            if (!$faturaExist) return response()->json(['message' => 'O ID informado não é de uma fatura válida', 'code' => 406], 406);
+            if (!$invoiceExist) return response()->json(['message' => 'O ID informado não é de uma invoice válida', 'code' => 406], 406);
 
-            Fatura::where('id', $id)->delete();
+            Invoice::where('id', $id)->delete();
 
             return response()->json([
-                'message' => 'A fatura com ID ' . $id . ' foi deletada com sucesso!',
-                'data' => Fatura::all(),
+                'message' => 'A invoice com ID ' . $id . ' foi deletada com sucesso!',
+                'data' => Invoice::all(),
                 'code' => 200
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Ocorreu um erro ao tentar deletar a fatura',
+                'message' => 'Ocorreu um erro ao tentar deletar a invoice',
                 'info' => $e->getMessage(),
                 'code' => 500
             ], 500);
@@ -221,7 +221,7 @@ class FaturaController extends Controller
 
     function validateEmptyField($request)
     {
-        if (!isset($request->assinatura_id) || !isset($request->descricao) || !isset($request->vencimento) || !isset($request->valor) || !isset($request->status)) {
+        if (!isset($request->signature_id) || !isset($request->description) || !isset($request->due_date) || !isset($request->amount) || !isset($request->status)) {
             return true;
         } else {
             return false;
@@ -231,21 +231,21 @@ class FaturaController extends Controller
     function validatorFields($request)
     {
         $validator = Validator::make($request->all(), [
-            'assinatura_id' => 'required|integer',
-            'descricao' => 'required|string',
-            'vencimento' => 'required|date',
-            'valor' => 'required|integer',
+            'signature_id' => 'required|integer',
+            'description' => 'required|string',
+            'due_date' => 'required|date',
+            'amount' => 'required|integer',
             'status' => 'required|string|in:pago,pendente',
         ]);
 
         return $validator->fails() ? $validator : false;
     }
 
-    function validatorUserAndAssinatura($request)
+    function validatorUserAndSignature($request)
     {
-        $assinaturaExist = Assinatura::where('id', $request->assinatura_id)
+        $signatureExist = Signature::where('id', $request->signature_id)
             ->exists();
 
-        return $assinaturaExist ? true : false;
+        return $signatureExist ? true : false;
     }
 }

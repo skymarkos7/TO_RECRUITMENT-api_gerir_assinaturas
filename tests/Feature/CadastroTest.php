@@ -16,9 +16,9 @@ class UserTest extends TestCase
     {
         $data = [
             // "codigo" => "XYYYTT", // sending without code
-            "nome" => "juca gomes",
-            "email" => "email@noformatovalido.com",
-            "telefone" => "82954655"
+            "name" => "juca gomes",
+            "mail" => "mail@noformatovalido.com",
+            "phone" => "82954655"
         ];
 
         $response = $this->withHeaders([
@@ -32,9 +32,9 @@ class UserTest extends TestCase
     {
         $data = [
             "codigo" => "XYBBTT", // sending without code
-            "nome" => "ana maria",
-            "email" => "ana@hotmail.com",
-            "telefone" => "82954666"
+            "name" => "ana maria",
+            "mail" => "ana@hotmail.com",
+            "phone" => "82954666"
         ];
 
         $response = $this->withHeaders([
@@ -80,9 +80,9 @@ class UserTest extends TestCase
     {
         $data = [
             "codigo" => "XYYYTT",
-            "nome" => "juca gomes",
-            "email" => "deltan@semLanhou.com",
-            "telefone" => "82954655"
+            "name" => "juca gomes",
+            "mail" => "deltan@semLanhou.com",
+            "phone" => "82954655"
         ];
 
         $response = $this->withHeaders([
@@ -96,9 +96,9 @@ class UserTest extends TestCase
     {
         $data = [
             "codigo" => "XYYYTT",
-            "nome" => "juca gomes",
-            "email" => "deltan@semLanhou.com",
-            "telefone" => "82954655"
+            "name" => "juca gomes",
+            "mail" => "deltan@semLanhou.com",
+            "phone" => "82954655"
         ];
 
         $response = $this->withHeaders([
@@ -112,9 +112,9 @@ class UserTest extends TestCase
     {
         $data = [
             "codigo" => "XYYYTT",
-            // "nome" => "juca gomes",     // EMPTY FIELD
-            "email" => "deltan@semLanhou.com",
-            "telefone" => "82954655"
+            // "name" => "juca gomes",     // EMPTY FIELD
+            "mail" => "deltan@semLanhou.com",
+            "phone" => "82954655"
         ];
 
         $response = $this->withHeaders([
@@ -124,13 +124,13 @@ class UserTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function test_sending_invalid_email_will_be_asked_to_correct_in_update_route(): void
+    public function test_sending_invalid_mail_will_be_asked_to_correct_in_update_route(): void
     {
         $data = [
             "codigo" => "XYYYTT",
-            "nome" => "juca gomes",
-            "email" => "emailemumformatoinvalido",
-            "telefone" => "82954655"
+            "name" => "juca gomes",
+            "mail" => "mailemumformatoinvalido",
+            "phone" => "82954655"
         ];
 
         $response = $this->withHeaders([
@@ -144,9 +144,9 @@ class UserTest extends TestCase
     {
         $data = [
             "codigo" => "XYYYTT",
-            "nome" => "juca gomes",
-            "email" => "email@noformatovalido.com",
-            "telefone" => "82954655"
+            "name" => "juca gomes",
+            "mail" => "mail@noformatovalido.com",
+            "phone" => "82954655"
         ];
 
         $response = $this->withHeaders([

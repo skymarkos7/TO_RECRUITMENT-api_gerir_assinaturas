@@ -5,7 +5,8 @@
 - ✅ Requisições a api laravel seguindo as regras para uma [api restful](https://www.dio.me/articles/entendendo-as-diferencas-entre-apis-rest-e-restful)
 - ✅ job assincrono definido para ser executado 1 vez ao dia
 - ✅ Uma [collection](docs/desafio-api-de-assinaturas-jobs-assincrôno.postman_collection.json) para acionar as rotas ou um [front em vue.js](https://github.com/skymarkos7/TO_RECRUITMENT-front_gerir_assinaturas-) para integragir com a api.
-- ✅ Unit test - [testes de feature](tests/Feature/AssinaturaTest.php) aplicado as regras da api.
+- ✅ [Documentação em swagger](docs\swagger.yaml) das rotas da api, o conteúdo do arquivo swagger pode ser colado no [site oficial](https://editor.swagger.io/) para visualização rápida da documentação 
+- ✅ Unit test - [testes de feature](tests/Feature/SignatureTest.php) aplicado as regras da api.
 - ✅ Querys montadas com [eloquent](https://laravel.com/docs/11.x/eloquent) para facilitar a troca de banco.
 
 
@@ -17,15 +18,15 @@
     - OBS: Para essa api foi utilizado o banco de dados MYSQL entretanto é possível utilizar outros bancos, bastanto configurar o arquivo [.env](.env)
 4. Popule as tabelas executando as seeds a baixo:
     1. `php artisan db:seed --class=UserSeeder`
-    2. `php artisan db:seed --class=AssinaturaSeeder`
-    3. `php artisan db:seed --class=FaturaSeeder`
+    2. `php artisan db:seed --class=SignatureSeeder`
+    3. `php artisan db:seed --class=InvoiceSeeder`
     
 5. Execute o servidor de API com `php artisan serve`   
 
 ## Task que converte assinatura com vencimento igual ou inferior a 10 dias em fatura  ⏳🕐
 - Listar as tasks que podem ser agendadas `php artisan schedule:list`
 - Iniciar o trabalho das tasks `php artisan schedule:work`
-- Executar diretamente o command da task para testes `php artisan app:verificar-assinaturas`
+- Executar diretamente o command da task para testes `php artisan app:verificar-signatures`
 
 ## Rodar cenários de testes 🧑‍🔬🧪
  - Rodar todos os testes `php artisan test`
