@@ -28,12 +28,12 @@
 ## Task que converte assinatura com vencimento igual ou inferior a 10 dias em fatura  ⏳🕐
 - Listar as tasks que podem ser agendadas `php artisan schedule:list`
 - Iniciar o trabalho das tasks `php artisan schedule:work`
-- Executar diretamente o command da task para testes `php artisan app:verificar-signatures`
+- Executar diretamente o command da task para testes `php artisan app:verify-signatures`
 
 ## Rodar cenários de testes 🧑‍🔬🧪
  - Rodar todos os testes `php artisan test`
 
- - Rodar um cenário específico, exemplo: `php artisan test --filter test_donnot_creating_a_new_fatura_without_a_required_field`
+ - Rodar um cenário específico, exemplo: `php artisan test --filter test_donnot_creating_a_new_user_without_a_required_field`
 
 ## Front-end para mostrar informações do projeto 🖥️ 🌅
 Siga as instruções no [reposiório](https://github.com/skymarkos7/front-assinatura-marcos-lourenco-desafio): `https://github.com/skymarkos7/front-assinatura-marcos-lourenco-desafio`

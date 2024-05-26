@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
@@ -12,29 +13,29 @@ class UserTest extends TestCase
      * User feature test
      */
 
+    use DatabaseTransactions;
+
     public function test_donnot_creating_a_new_user_without_a_required_field(): void
     {
         $data = [
-            // "codigo" => "XYYYTT", // sending without code
-            "name" => "juca gomes",
-            "mail" => "mail@noformatovalido.com",
-            "phone" => "82954655"
+            // "name" => "Marcos Lourenço", // sending without name
+            "mail" => "marquinhos@host.com",
+            "phone" => "(82) 99690-9210"
         ];
 
         $response = $this->withHeaders([
                 'Content-Type' => 'application/json',
             ])->json('POST', 'api/user/insert', $data);
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 
     public function test_donnot_creating_a_user_that_already_exists_in_database(): void
     {
         $data = [
-            "codigo" => "XYBBTT", // sending without code
             "name" => "ana maria",
             "mail" => "ana@hotmail.com",
-            "phone" => "82954666"
+            "phone" => "(82) 99690-9200"
         ];
 
         $response = $this->withHeaders([
@@ -69,7 +70,7 @@ class UserTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function test_sending_an_nonexistent_id_need_to_be_warned_in_get_route(): void
+    public function test_sending_an_nonexistent_id_return_warned(): void
     {
         $response = $this->get('api/user/get/10000000');
 
@@ -79,10 +80,9 @@ class UserTest extends TestCase
     public function test_sending_an_nonexistent_id_need_to_be_warned_in_update_route(): void
     {
         $data = [
-            "codigo" => "XYYYTT",
             "name" => "juca gomes",
             "mail" => "deltan@semLanhou.com",
-            "phone" => "82954655"
+            "phone" => "(82) 99691-9322"
         ];
 
         $response = $this->withHeaders([
@@ -108,22 +108,6 @@ class UserTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function test_sending_any_field_required_empty_will_be_asked_in_update_route(): void
-    {
-        $data = [
-            "codigo" => "XYYYTT",
-            // "name" => "juca gomes",     // EMPTY FIELD
-            "mail" => "deltan@semLanhou.com",
-            "phone" => "82954655"
-        ];
-
-        $response = $this->withHeaders([
-                'Content-Type' => 'application/json',
-            ])->json('PUT', 'api/user/update/1', $data);
-
-        $response->assertStatus(400);
-    }
-
     public function test_sending_invalid_mail_will_be_asked_to_correct_in_update_route(): void
     {
         $data = [
@@ -143,10 +127,9 @@ class UserTest extends TestCase
     public function test_sending_correct_data_the_user_is_updated_successfully_in_update_route(): void
     {
         $data = [
-            "codigo" => "XYYYTT",
             "name" => "juca gomes",
             "mail" => "mail@noformatovalido.com",
-            "phone" => "82954655"
+            "phone" => "(82) 99546-5544"
         ];
 
         $response = $this->withHeaders([

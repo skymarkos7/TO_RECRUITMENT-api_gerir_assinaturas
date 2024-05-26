@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
 
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->command('app:verificar-signatures')->daily();
+        $schedule->command('app:app:verify-signatures')->daily();
     })
 
     ->withExceptions(function (Exceptions $exceptions) {

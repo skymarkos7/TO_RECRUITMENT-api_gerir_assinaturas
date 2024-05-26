@@ -7,14 +7,14 @@ use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class VerificarSignatures extends Command
+class VerifySignatures extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:verificar-signatures';
+    protected $signature = 'app:verify-signatures';
 
     /**
      * The console command description.
@@ -38,11 +38,10 @@ class VerificarSignatures extends Command
             try {
                 foreach ($signatures as $signature) {
                     Invoice::create([
-                        'user' => $signature->user,
-                        'signature' => $signature->id,
+                        'signature_id' => $signature->id,
                         'description' => $signature->description,
-                        'due_date' => $signature->due_date,
                         'amount' => $signature->amount,
+                        'due_date' => $signature->due_date,
                         'status' => 'pendente',
                     ]);
 
@@ -52,17 +51,17 @@ class VerificarSignatures extends Command
                         ]);
                 }
 
-                $this->info('Foram lançadas '. $quantitySignatures . ' novas invoices');
+                $this->info('Havia '. $quantitySignatures . ' assinaturas com data inferior ou igual a 10 dias para o vencimento e foram lançadas como faturas');
 
             } catch (\Exception $e) {
                 return response()->json([
-                    'message' => 'Ocorreu um erro ao realizar o lançamento das invoices',
+                    'message' => 'Ocorreu um erro ao realizar o lançamento das faturas',
                     'info' => $e->getMessage(),
                     'code' => 500
                 ], 500);
         }
         } else {
-            $this->info('Não há signatures com data de due_date menor ou igual a 10 dias');
+            $this->info('Não há assinaturas com data de vencimento menor ou igual a 10 dias');
         }
     }
 }

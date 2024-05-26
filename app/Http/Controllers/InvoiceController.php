@@ -150,13 +150,6 @@ class InvoiceController extends Controller
 
             if (!$invoiceExist) return response()->json(['message' => 'O ID da fatura informada não existe', 'code' => 406], 406);
 
-            // if (!$this->validatorUserAndSignature($request)) {
-            //     return response()->json([
-            //         'message' => 'O ID da assinatura informada não é válido, favor informe um ID válido',
-            //         'code' => 406
-            //     ], 406);
-            // }
-
             Invoice::where('id', $id)
                 ->update([
                     // 'signature_id' => $request->signature_id,
