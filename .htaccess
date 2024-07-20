@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^apirecruitment.skymarkos7.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.apirecruitment.skymarkos7.com$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
